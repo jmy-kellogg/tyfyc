@@ -28,13 +28,24 @@ npm run build
 ```
 
 ## Project Structure
-- tyfyc/
-- │── public/             # Static assets
-- │── src/
-- │   ├── components/     # Vue components
-- │   ├── App.vue         # Root component
-- │   ├── main.js         # Entry file
-- │── index.html          # Html
-- │── package.json        # Dependencies and scripts
-- │── vite.config.js      # Vite configuration
-- │── README.md           # Project documentation
+```
+tyfyc/
+│── public/             # Static assets
+│── src/
+│   ├── components/     # Vue components
+│   ├── App.vue         # Root component
+│   ├── main.js         # Entry file
+│── index.html          # Html
+│── package.json        # Dependencies and scripts
+│── vite.config.js      # Vite configuration
+│── README.md           # Project documentation
+```
+
+## Technologies Used
+- Vue.js 3
+- Vite
+- TypeScript
+- HTML & CSS
+- License
+
+## This project is licensed under the MIT License.
