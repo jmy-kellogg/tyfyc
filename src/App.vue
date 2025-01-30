@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
+import { useStore } from "vuex";
+
 import ManualForm from "./components/ManualForm.vue";
 import FormattedDoc from "./components/FormattedDoc.vue";
+
+onMounted(() => {
+  const store = useStore();
+  store.dispatch("getStateFromLocalStorage");
+});
 </script>
 
 <template>

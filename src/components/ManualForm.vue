@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapState } from "vuex";
 import DocUploaderVue from "./inputs/DocUploader.vue";
 import SkillsVue from "./inputs/Skills.vue";
 import JobsVue from "./inputs/Jobs.vue";
@@ -91,6 +92,9 @@ export default defineComponent({
       }
     }
   },
+  computed: {
+    ...mapState("personal", ["firstName"]),
+  },
   methods: {
     onSubmit(event) {
       if (event) {
@@ -104,12 +108,15 @@ export default defineComponent({
     savePersonal() {
       localStorage.personal = JSON.stringify(this.personal);
     },
+    async updateData(field, value) {
+      this.$store.dispatch("personal/updateData", { field, value });
+    },
   },
 });
 </script>
 
 <template>
-  <div class="m-3">
+  <div class="m-3 h-screen overflow-scroll">
     <form>
       <!-- <DocUploaderVue /> -->
       <h2><b>Personal Info:</b></h2>
@@ -121,12 +128,12 @@ export default defineComponent({
           <div class="mt-2">
             <input
               type="text"
-              name="first-name"
               id="first-name"
+              name="first-name"
               autocomplete="given-name"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.firstName"
-              @change="savePersonal"
+              :value="firstName"
+              @change="updateData('firstName', $event.target.value)"
             />
           </div>
         </div>
