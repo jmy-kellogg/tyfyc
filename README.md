@@ -11,8 +11,6 @@ Tyfyc stands for “thank you for your consideration” this is to assist in cus
 - [ ] Updates resume according to job posting
 
 ## Installation
-
-## Project setup
 ```
 npm install
 ```

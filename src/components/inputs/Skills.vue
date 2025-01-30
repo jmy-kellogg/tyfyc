@@ -106,13 +106,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="sm:col-span-4">
-    <h2>
-      <b>Skills</b>
-    </h2>
-    <label for="degree" class="block text-sm/6 font-medium">skills</label>
+  <div class="col-span-full">
+    <h2><b>Skills</b></h2>
+    <label for="skills" class="block text-sm/6 font-medium">
+      <h2><b>technologies</b></h2>
+    </label>
     <multiselect
-      id="tagging"
+      id="skills"
       tag-placeholder="Add this as new skill"
       placeholder="Search or add a skill"
       label="name"

@@ -250,22 +250,8 @@ export default defineComponent({
           </div>
         </div>
         <SkillsVue :skills="skills" />
-        <JobsVue
-          :jobs="jobs"
-          @update="
-            (newJobs) => {
-              this.jobs = newJobs;
-            }
-          "
-        />
-        <EducationVue
-          :education="education || []"
-          @update="
-            (edu) => {
-              this.education = edu;
-            }
-          "
-        />
+        <JobsVue :jobs="jobs" />
+        <EducationVue :education="education" />
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">

@@ -4,25 +4,16 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "Education",
   props: ["education"],
-  emits: ["update"],
   methods: {
     addNew() {
-      const newEducation = [
-        ...this.education,
-        {
-          degree: "",
-          school: "",
-          gradYear: "",
-        },
-      ];
-
-      this.$emit("update", newEducation);
+      this.education.push({
+        degree: "",
+        school: "",
+        gradYear: "",
+      });
     },
     remove(index) {
-      let newEducation = [...this.education];
-      newEducation.splice(index, 1);
-
-      this.$emit("update", newEducation);
+      this.education.splice(index, 1);
     },
   },
 });
@@ -71,7 +62,7 @@ export default defineComponent({
         class="rounded-md text-sm/6 my-3 px-2 py-1 outline-1 -outline-offset-1 outline-gray-300 font-semibold shadow-sm hover:bg-indigo-300 outline-1"
         @click="remove(index)"
       >
-        Remove School
+        Remove {{ school.school }}
       </button>
     </div>
 
@@ -80,7 +71,7 @@ export default defineComponent({
       class="rounded-md bg-indigo-600 my-3 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       @click="addNew"
     >
-      Add Another
+      Add School
     </button>
   </div>
 </template>

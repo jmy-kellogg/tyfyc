@@ -4,28 +4,19 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "Jobs",
   props: ["jobs"],
-  emits: ["update"],
   methods: {
     addNew() {
-      const newJobs = [
-        ...this.jobs,
-        {
-          title: "",
-          company: "",
-          location: "",
-          start: "",
-          end: "",
-          description: "",
-        },
-      ];
-
-      this.$emit("update", newJobs);
+      this.jobs.push({
+        title: "",
+        company: "",
+        location: "",
+        start: "",
+        end: "",
+        description: "",
+      });
     },
     remove(index) {
-      let newJobs = [...this.jobs];
-      newJobs.splice(index, 1);
-
-      this.$emit("update", newJobs);
+      this.jobs.splice(index, 1);
     },
   },
 });
@@ -104,7 +95,7 @@ export default defineComponent({
         class="rounded-md text-sm/6 my-3 px-2 py-1 outline-1 -outline-offset-1 outline-gray-300 font-semibold shadow-sm hover:bg-indigo-300 outline-1"
         @click="remove(index)"
       >
-        Remove Job
+        Remove {{ job.company }}
       </button>
     </div>
 
@@ -113,7 +104,7 @@ export default defineComponent({
       class="rounded-md bg-indigo-600 my-3 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       @click="addNew"
     >
-      Add Another
+      Add Job
     </button>
   </div>
 </template>
