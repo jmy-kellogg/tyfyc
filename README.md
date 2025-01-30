@@ -1,5 +1,40 @@
-# Vue 3 + TypeScript + Vite
+# Tyfyc (Thank you for your consideration)
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Tyfyc stands for “thank you for your consideration” this is to assist in customizing a person resume. This tool will allow you to upload your resume and auto update it according to a given job post.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+
+## Features
+[X] Manually add/change resume
+[X] Formats resume to downloadable PDF
+[X] Saves locally in cookies
+[ ] Autofill resume from an existing resume
+[ ] Updates resume according to job posting
+
+## Installation
+
+## Project setup
+```
+npm install
+```
+
+### Run for development
+```
+npm run dev
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+## Project Structure
+tyfyc/
+│── public/             # Static assets
+│── src/
+│   ├── components/     # Vue components
+│   ├── App.vue         # Root component
+│   ├── main.js         # Entry file
+│── index.html          # Html
+│── package.json        # Dependencies and scripts
+│── vite.config.js      # Vite configuration
+│── README.md           # Project documentation

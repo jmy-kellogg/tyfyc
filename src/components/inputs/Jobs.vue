@@ -37,9 +37,9 @@ export default defineComponent({
       <b>Professional Experience </b>
     </h2>
     <div
+      class="border-b border-gray-300 my-3"
       v-for="(job, index) in jobs"
       :key="index"
-      class="border-b border-gray-300 my-3"
     >
       <label for="title" class="block text-sm/6 font-medium">Title</label>
       <input

@@ -33,9 +33,9 @@ export default defineComponent({
       <b>Education </b>
     </h2>
     <div
+      class="sm:col-span-4"
       v-for="(school, index) in education"
       :key="index"
-      class="sm:col-span-4"
     >
       <label for="degree" class="block text-sm/6 font-medium">Degree</label>
       <input
