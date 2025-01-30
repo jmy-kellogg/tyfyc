@@ -1,0 +1,94 @@
+<template>
+  <div class="sm:col-span-4">
+    <h2>
+      <b>Education </b>
+    </h2>
+    <div
+      v-for="(school, index) in education"
+      :key="index"
+      class="sm:col-span-4"
+    >
+      <label for="degree" class="block text-sm/6 font-medium">Degree</label>
+      <input
+        name="degree"
+        type="degree"
+        autocomplete="degree"
+        class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+        v-model="school.degree"
+      />
+
+      <label for="school" class="block text-sm/6 font-medium">School</label>
+      <input
+        type="school"
+        autocomplete="school"
+        class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+        v-model="school.school"
+      />
+
+      <label for="grad-year" class="block text-sm/6 font-medium"
+        >Year Graduated</label
+      >
+
+      <input
+        type="text"
+        name="grad-year"
+        id="grad-year"
+        autocomplete="address-level2"
+        class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+        v-model="school.gradYear"
+      />
+      <button
+        type="button"
+        class="rounded-md text-sm/6 my-3 px-2 py-1 outline-1 -outline-offset-1 outline-gray-300 font-semibold shadow-sm hover:bg-indigo-300 outline-1"
+        @click="remove(index)"
+      >
+        Remove School
+      </button>
+    </div>
+
+    <button
+      type="button"
+      class="rounded-md bg-indigo-600 my-3 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      @click="addNew"
+    >
+      Add Another
+    </button>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+interface EducationData {
+  degree: string;
+  school: string;
+  gradYear: string;
+}
+
+export default defineComponent({
+  name: "Education",
+  props: ["education"],
+  emits: ["update"],
+  methods: {
+    addNew() {
+      const newEducation = [
+        ...this.education,
+        {
+          degree: "",
+          school: "",
+          gradYear: "",
+        },
+      ];
+
+      this.$emit("update", newEducation);
+    },
+    remove(index) {
+      let newEducation = [...this.education];
+      newEducation.splice(index, 1);
+
+      this.$emit("update", newEducation);
+    },
+  },
+});
+</script>
+<style scoped></style>
