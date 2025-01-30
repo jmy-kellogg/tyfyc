@@ -1,4 +1,4 @@
-# Tyfyc (Thank you for your consideration)
+# Tyfyc
 
 Tyfyc stands for “thank you for your consideration” this is to assist in customizing a person resume. This tool will allow you to upload your resume and auto update it according to a given job post.
 
