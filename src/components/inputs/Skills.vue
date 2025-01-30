@@ -75,11 +75,13 @@ export default defineComponent({
   methods: {
     onSelect(skill) {
       this.skills.push(skill);
+      this.saveSkills();
     },
     onRemove(removeOption) {
       const index = this.skills.indexOf(removeOption);
       if (index > -1) {
         this.skills.splice(index, 1);
+        this.saveSkills();
       }
     },
     addTag(newTag) {
@@ -89,6 +91,10 @@ export default defineComponent({
       };
       this.options.push(tag);
       this.skills.push(tag);
+      this.saveSkills();
+    },
+    saveSkills() {
+      localStorage.skills = JSON.stringify(this.skills);
     },
     snake_case_string(str) {
       return (

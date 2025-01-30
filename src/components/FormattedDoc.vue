@@ -2,19 +2,10 @@
 import html2pdf from "html2pdf.js";
 import { defineComponent } from "vue";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  city: string;
-  state: string;
-  summary: string;
-}
-
 export default defineComponent({
   name: "FormattedDoc",
   data() {
-    const formData: FormData = {
+    const personal = {
       firstName: "",
       lastName: "",
       email: "",
@@ -24,7 +15,7 @@ export default defineComponent({
     };
 
     return {
-      formData,
+      personal,
       education: [],
       jobs: [],
       skills: [],
@@ -32,21 +23,25 @@ export default defineComponent({
   },
   mounted() {
     if (localStorage) {
-      this.formData = localStorage;
+      const personal = localStorage.getItem("personal");
       const education = localStorage.getItem("education");
       const jobs = localStorage.getItem("jobs");
       const skills = localStorage.getItem("skills");
 
-      if (education) {
-        this.education = JSON.parse(education);
+      if (personal) {
+        this.personal = JSON.parse(personal);
+      }
+
+      if (skills) {
+        this.skills = JSON.parse(skills);
       }
 
       if (jobs) {
         this.jobs = JSON.parse(jobs);
       }
 
-      if (skills) {
-        this.skills = JSON.parse(skills);
+      if (education) {
+        this.education = JSON.parse(education);
       }
     }
   },
@@ -73,18 +68,18 @@ export default defineComponent({
   <div>
     <div class="page">
       <div id="element-to-convert">
-        <h1>{{ formData.firstName }} {{ formData.lastName }}</h1>
+        <h1>{{ personal.firstName }} {{ personal.lastName }}</h1>
         <p>
-          Email: {{ formData.email }} | Phone: {{ formData.phone }} | Location:
-          {{ formData.city }}, {{ formData.state }} |
+          Email: {{ personal.email }} | Phone: {{ personal.phone }} | Location:
+          {{ personal.city }}, {{ personal.state }} |
         </p>
         <p>
-          LinkedIn: linkedin.com/in/{{ formData.linkedIn }} | GitHub:
-          github.com/{{ formData.gitHub }}
+          LinkedIn: linkedin.com/in/{{ personal.linkedIn }} | GitHub:
+          github.com/{{ personal.gitHub }}
         </p>
         <h2>Summary</h2>
         <p>
-          {{ formData.summary }}
+          {{ personal.summary }}
         </p>
         <h3>Skills</h3>
         <ul>

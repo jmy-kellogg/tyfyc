@@ -1,11 +1,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import DocUploaderVue from "./inputs/DocUploader.vue";
-import EducationVue from "./inputs/Education.vue";
-import JobsVue from "./inputs/Jobs.vue";
 import SkillsVue from "./inputs/Skills.vue";
+import JobsVue from "./inputs/Jobs.vue";
+import EducationVue from "./inputs/Education.vue";
 
-interface FormData {
+interface Personal {
   firstName: string;
   lastName: string;
   email: string;
@@ -18,11 +18,6 @@ interface FormData {
   gradYear: string;
 }
 
-interface EducationData {
-  degree: string;
-  school: string;
-  gradYear: string;
-}
 interface JobData {
   title: string;
   company: string;
@@ -32,11 +27,17 @@ interface JobData {
   description: string;
 }
 
+interface EducationData {
+  degree: string;
+  school: string;
+  gradYear: string;
+}
+
 export default defineComponent({
   name: "ManualForm",
-  components: { EducationVue, JobsVue, SkillsVue, DocUploaderVue },
+  components: { DocUploaderVue, SkillsVue, JobsVue, EducationVue },
   data() {
-    const formData: FormData = {
+    const personal: Personal = {
       firstName: "",
       lastName: "",
       email: "",
@@ -49,6 +50,8 @@ export default defineComponent({
       gradYear: "",
     };
 
+    const skills = [{ name: "Javascript", id: "js" }];
+    const jobs: JobData[] = [];
     const education: EducationData[] = [
       {
         degree: "",
@@ -56,33 +59,35 @@ export default defineComponent({
         gradYear: "",
       },
     ];
-    const jobs: JobData[] = [];
-    const skills = [{ name: "Javascript", id: "js" }];
 
     return {
-      formData,
-      education,
-      jobs,
+      personal,
       skills,
+      jobs,
+      education,
     };
   },
   mounted() {
     if (localStorage) {
-      this.formData = localStorage;
+      const personal = localStorage.getItem("personal");
       const education = localStorage.getItem("education");
       const jobs = localStorage.getItem("jobs");
       const skills = localStorage.getItem("skills");
 
-      if (education) {
-        this.education = JSON.parse(education);
+      if (personal) {
+        this.personal = JSON.parse(personal);
+      }
+
+      if (skills) {
+        this.skills = JSON.parse(skills);
       }
 
       if (jobs) {
         this.jobs = JSON.parse(jobs);
       }
 
-      if (skills) {
-        this.skills = JSON.parse(skills);
+      if (education) {
+        this.education = JSON.parse(education);
       }
     }
   },
@@ -91,20 +96,13 @@ export default defineComponent({
       if (event) {
         event.preventDefault();
       }
-      localStorage.firstName = this.formData.firstName;
-      localStorage.lastName = this.formData.lastName;
-      localStorage.email = this.formData.email;
-      localStorage.city = this.formData.city;
-      localStorage.state = this.formData.state;
-      localStorage.summary = this.formData.summary;
-
-      localStorage.phone = this.formData.phone;
-      localStorage.linkedIn = this.formData.linkedIn;
-      localStorage.gitHub = this.formData.gitHub;
-
-      localStorage.education = JSON.stringify(this.education);
-      localStorage.jobs = JSON.stringify(this.jobs);
+      localStorage.personal = JSON.stringify(this.personal);
       localStorage.skills = JSON.stringify(this.skills);
+      localStorage.jobs = JSON.stringify(this.jobs);
+      localStorage.education = JSON.stringify(this.education);
+    },
+    savePersonal() {
+      localStorage.personal = JSON.stringify(this.personal);
     },
   },
 });
@@ -127,7 +125,8 @@ export default defineComponent({
               id="first-name"
               autocomplete="given-name"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.firstName"
+              v-model="personal.firstName"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -143,7 +142,8 @@ export default defineComponent({
               id="last-name"
               autocomplete="family-name"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.lastName"
+              v-model="personal.lastName"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -159,7 +159,8 @@ export default defineComponent({
               type="email"
               autocomplete="email"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.email"
+              v-model="personal.email"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -172,7 +173,8 @@ export default defineComponent({
               type="phone"
               autocomplete="phone"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.phone"
+              v-model="personal.phone"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -186,7 +188,8 @@ export default defineComponent({
               id="city"
               autocomplete="address-level2"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.city"
+              v-model="personal.city"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -200,7 +203,8 @@ export default defineComponent({
               id="state"
               autocomplete="address-level1"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.state"
+              v-model="personal.state"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -215,7 +219,8 @@ export default defineComponent({
               type="linkedin"
               autocomplete="linkedin"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.linkedIn"
+              v-model="personal.linkedIn"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -229,7 +234,8 @@ export default defineComponent({
               type="github"
               autocomplete="github"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.gitHub"
+              v-model="personal.gitHub"
+              @change="savePersonal"
             />
           </div>
         </div>
@@ -245,24 +251,14 @@ export default defineComponent({
               id="summary"
               rows="3"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="formData.summary"
+              v-model="personal.summary"
+              @change="savePersonal"
             ></textarea>
           </div>
         </div>
         <SkillsVue :skills="skills" />
         <JobsVue :jobs="jobs" />
         <EducationVue :education="education" />
-      </div>
-
-      <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" class="text-sm/6 font-semibold">Cancel</button>
-        <button
-          type="submit"
-          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          @click="onSubmit"
-        >
-          Save
-        </button>
       </div>
     </form>
   </div>

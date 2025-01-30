@@ -17,6 +17,10 @@ export default defineComponent({
     },
     remove(index) {
       this.jobs.splice(index, 1);
+      this.saveJobs();
+    },
+    saveJobs() {
+      localStorage.jobs = JSON.stringify(this.jobs);
     },
   },
 });
@@ -39,6 +43,7 @@ export default defineComponent({
         autocomplete="title"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="job.title"
+        @change="saveJobs"
       />
 
       <label for="company" class="block text-sm/6 font-medium">Company</label>
@@ -49,6 +54,7 @@ export default defineComponent({
         autocomplete="address-level2"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="job.company"
+        @change="saveJobs"
       />
 
       <label for="location" class="block text-sm/6 font-medium">Location</label>
@@ -57,6 +63,7 @@ export default defineComponent({
         autocomplete="location"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="job.location"
+        @change="saveJobs"
       />
 
       <label for="start" class="block text-sm/6 font-medium">Start</label>
@@ -67,6 +74,7 @@ export default defineComponent({
         autocomplete="address-level2"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="job.start"
+        @change="saveJobs"
       />
 
       <label for="end" class="block text-sm/6 font-medium">End</label>
@@ -77,6 +85,7 @@ export default defineComponent({
         autocomplete="address-level2"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="job.end"
+        @change="saveJobs"
       />
 
       <label for="description" class="block text-sm/6 font-medium"
@@ -88,6 +97,7 @@ export default defineComponent({
         rows="3"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="job.description"
+        @change="saveJobs"
       ></textarea>
 
       <button
