@@ -1,60 +1,6 @@
-<template>
-  <div>
-    <div class="page">
-      <div id="element-to-convert">
-        <h1>{{ formData.firstName }} {{ formData.lastName }}</h1>
-        <p>
-          Email: {{ formData.email }} | Phone: {{ formData.phone }} | Location:
-          {{ formData.city }}, {{ formData.state }} |
-        </p>
-        <p>
-          LinkedIn: linkedin.com/in/{{ formData.linkedIn }} | GitHub:
-          github.com/{{ formData.gitHub }}
-        </p>
-        <h2>Summary</h2>
-        <p>
-          {{ formData.summary }}
-        </p>
-        <h3>Skills</h3>
-        <ul>
-          <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
-        </ul>
-        <h2>Professional Experience</h2>
-
-        <div v-for="(job, index) in jobs" :key="index">
-          <h3>{{ job.title }}</h3>
-
-          <p>
-            <b>{{ job.company }}</b> – {{ job.location }}
-          </p>
-          <p>{{ job.start }} – {{ job.end }}</p>
-
-          <p>
-            {{ job.description }}
-          </p>
-        </div>
-        <h2>Education</h2>
-        <div v-for="(school, index) in education" :key="index">
-          <p>
-            <b>{{ school.degree }}</b>
-          </p>
-          <p>{{ school.school }} – {{ school.gradYear }}</p>
-        </div>
-      </div>
-    </div>
-
-    <button
-      class="rounded-md bg-indigo-600 my-3 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      @click="onPrint"
-    >
-      Print
-    </button>
-  </div>
-</template>
-
 <script lang="ts">
 import html2pdf from "html2pdf.js";
-import { defineComponent, defineProps, reactive } from "vue";
+import { defineComponent } from "vue";
 
 interface FormData {
   firstName: string;
@@ -122,6 +68,60 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <div>
+    <div class="page">
+      <div id="element-to-convert">
+        <h1>{{ formData.firstName }} {{ formData.lastName }}</h1>
+        <p>
+          Email: {{ formData.email }} | Phone: {{ formData.phone }} | Location:
+          {{ formData.city }}, {{ formData.state }} |
+        </p>
+        <p>
+          LinkedIn: linkedin.com/in/{{ formData.linkedIn }} | GitHub:
+          github.com/{{ formData.gitHub }}
+        </p>
+        <h2>Summary</h2>
+        <p>
+          {{ formData.summary }}
+        </p>
+        <h3>Skills</h3>
+        <ul>
+          <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
+        </ul>
+        <h2>Professional Experience</h2>
+
+        <div v-for="(job, index) in jobs" :key="index">
+          <h3>{{ job.title }}</h3>
+
+          <p>
+            <b>{{ job.company }}</b> – {{ job.location }}
+          </p>
+          <p>{{ job.start }} – {{ job.end }}</p>
+
+          <p>
+            {{ job.description }}
+          </p>
+        </div>
+        <h2>Education</h2>
+        <div v-for="(school, index) in education" :key="index">
+          <p>
+            <b>{{ school.degree }}</b>
+          </p>
+          <p>{{ school.school }} – {{ school.gradYear }}</p>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="rounded-md bg-indigo-600 my-3 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      @click="onPrint"
+    >
+      Print
+    </button>
+  </div>
+</template>
 
 <style scoped>
 .page {

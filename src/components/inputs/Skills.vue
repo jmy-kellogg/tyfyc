@@ -1,26 +1,3 @@
-<template>
-  <div class="sm:col-span-4">
-    <h2>
-      <b>Skills</b>
-    </h2>
-    <label for="degree" class="block text-sm/6 font-medium">skills</label>
-    <multiselect
-      id="tagging"
-      tag-placeholder="Add this as new skill"
-      placeholder="Search or add a skill"
-      label="name"
-      track-by="id"
-      :model-value="skills"
-      :options="options"
-      :multiple="true"
-      :taggable="true"
-      @select="onSelect"
-      @remove="onRemove"
-      @tag="addTag"
-    ></multiselect>
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 import Multiselect from "vue-multiselect";
@@ -99,7 +76,7 @@ export default defineComponent({
     onSelect(skill) {
       this.skills.push(skill);
     },
-    onRemove(removeOption, id) {
+    onRemove(removeOption) {
       const index = this.skills.indexOf(removeOption);
       if (index > -1) {
         this.skills.splice(index, 1);
@@ -127,5 +104,28 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <div class="sm:col-span-4">
+    <h2>
+      <b>Skills</b>
+    </h2>
+    <label for="degree" class="block text-sm/6 font-medium">skills</label>
+    <multiselect
+      id="tagging"
+      tag-placeholder="Add this as new skill"
+      placeholder="Search or add a skill"
+      label="name"
+      track-by="id"
+      :model-value="skills"
+      :options="options"
+      :multiple="true"
+      :taggable="true"
+      @select="onSelect"
+      @remove="onRemove"
+      @tag="addTag"
+    ></multiselect>
+  </div>
+</template>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped></style>

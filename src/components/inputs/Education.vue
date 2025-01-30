@@ -1,3 +1,32 @@
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "Education",
+  props: ["education"],
+  emits: ["update"],
+  methods: {
+    addNew() {
+      const newEducation = [
+        ...this.education,
+        {
+          degree: "",
+          school: "",
+          gradYear: "",
+        },
+      ];
+
+      this.$emit("update", newEducation);
+    },
+    remove(index) {
+      let newEducation = [...this.education];
+      newEducation.splice(index, 1);
+
+      this.$emit("update", newEducation);
+    },
+  },
+});
+</script>
 <template>
   <div class="sm:col-span-4">
     <h2>
@@ -55,40 +84,4 @@
     </button>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-interface EducationData {
-  degree: string;
-  school: string;
-  gradYear: string;
-}
-
-export default defineComponent({
-  name: "Education",
-  props: ["education"],
-  emits: ["update"],
-  methods: {
-    addNew() {
-      const newEducation = [
-        ...this.education,
-        {
-          degree: "",
-          school: "",
-          gradYear: "",
-        },
-      ];
-
-      this.$emit("update", newEducation);
-    },
-    remove(index) {
-      let newEducation = [...this.education];
-      newEducation.splice(index, 1);
-
-      this.$emit("update", newEducation);
-    },
-  },
-});
-</script>
 <style scoped></style>

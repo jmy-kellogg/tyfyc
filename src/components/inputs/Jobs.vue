@@ -1,3 +1,36 @@
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "Jobs",
+  props: ["jobs"],
+  emits: ["update"],
+  methods: {
+    addNew() {
+      const newJobs = [
+        ...this.jobs,
+        {
+          title: "",
+          company: "",
+          location: "",
+          start: "",
+          end: "",
+          description: "",
+        },
+      ];
+
+      this.$emit("update", newJobs);
+    },
+    remove(index) {
+      let newJobs = [...this.jobs];
+      newJobs.splice(index, 1);
+
+      this.$emit("update", newJobs);
+    },
+  },
+});
+</script>
+
 <template>
   <div class="col-span-full">
     <h2>
@@ -84,47 +117,4 @@
     </button>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-interface JobData {
-  title: string;
-  company: string;
-  location: string;
-  start: string;
-  end: string;
-  description: string;
-}
-
-export default defineComponent({
-  name: "Jobs",
-  props: ["jobs"],
-  emits: ["update"],
-  methods: {
-    addNew() {
-      const newJobs = [
-        ...this.jobs,
-        {
-          title: "",
-          company: "",
-          location: "",
-          start: "",
-          end: "",
-          description: "",
-        },
-      ];
-
-      this.$emit("update", newJobs);
-    },
-    remove(index) {
-      let newJobs = [...this.jobs];
-      newJobs.splice(index, 1);
-
-      this.$emit("update", newJobs);
-    },
-  },
-});
-</script>
-
 <style scoped></style>
