@@ -18,8 +18,8 @@ export default defineComponent({
       "gitHub",
       "summary",
     ]),
-    ...mapState("education", { education: "eduHistory" }),
-    ...mapState("jobs", { jobs: "jobsHistory" }),
+    ...mapState("education", { education: "educationList" }),
+    ...mapState("jobs", { jobs: "jobsList" }),
     ...mapState("skills", { skills: "skillsList" }),
   },
   methods: {

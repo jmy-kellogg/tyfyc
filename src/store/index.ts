@@ -1,12 +1,17 @@
-import { createStore } from "vuex";
+import { type InjectionKey } from 'vue';
+import { createStore,  useStore as baseUseStore, type Store } from 'vuex';
+
+import { type State, type Context}  from "../types/index"
 import personal from "./modules/personal";
 import skills from "./modules/skills";
 import jobs from "./modules/jobs";
 import education from "./modules/education";
 
-export default createStore({
+export const key: InjectionKey<Store<State>> = Symbol()
+
+export default createStore<State>({
   actions: {
-    getStateFromLocalStorage({ dispatch }) {
+    getStateFromLocalStorage({ dispatch }: Context) {
       dispatch("personal/syncWithLocalStorage");
       dispatch("education/syncWithLocalStorage");
       dispatch("jobs/syncWithLocalStorage");
@@ -20,3 +25,7 @@ export default createStore({
     education,
   },
 });
+
+export function useStore () {
+  return baseUseStore(key)
+}

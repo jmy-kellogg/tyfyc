@@ -5,7 +5,7 @@ import { mapState } from "vuex";
 export default defineComponent({
   name: "Education",
   computed: {
-    ...mapState("education", { education: "eduHistory" }),
+    ...mapState("education", { education: "educationList" }),
   },
   methods: {
     saveEducation() {
