@@ -39,11 +39,9 @@ export default defineComponent({
   components: { DocUploaderVue, SkillsVue, JobsVue, EducationVue },
   data() {
     const skills = [{ name: "Javascript", id: "js" }];
-    const jobs: JobData[] = [];
 
     return {
       skills,
-      jobs,
     };
   },
   computed: {
@@ -216,7 +214,7 @@ export default defineComponent({
           </div>
         </div>
         <SkillsVue :skills="skills" />
-        <JobsVue :jobs="jobs" />
+        <JobsVue />
         <EducationVue />
       </div>
     </form>

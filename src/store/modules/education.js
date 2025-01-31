@@ -27,7 +27,7 @@ export default {
   },
   actions: {
     syncWithLocalStorage({ commit }) {
-      const educationData = localStorage.getItem("edu");
+      const educationData = localStorage.getItem("education");
       if (educationData) {
         const parseData = JSON.parse(educationData);
 
@@ -35,7 +35,7 @@ export default {
       }
     },
     saveToLocalStorage({ state }) {
-      localStorage.setItem("edu", JSON.stringify(state.eduHistory));
+      localStorage.setItem("education", JSON.stringify(state.eduHistory));
     },
     addNew({ commit }) {
       commit("addNew");

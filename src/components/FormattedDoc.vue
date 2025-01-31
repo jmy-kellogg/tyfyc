@@ -7,21 +7,15 @@ export default defineComponent({
   name: "FormattedDoc",
   data() {
     return {
-      jobs: [],
       skills: [],
     };
   },
   mounted() {
     if (localStorage) {
-      const jobs = localStorage.getItem("jobs");
       const skills = localStorage.getItem("skills");
 
       if (skills) {
         this.skills = JSON.parse(skills);
-      }
-
-      if (jobs) {
-        this.jobs = JSON.parse(jobs);
       }
     }
   },
@@ -38,6 +32,7 @@ export default defineComponent({
       "summary",
     ]),
     ...mapState("education", { education: "eduHistory" }),
+    ...mapState("jobs", { jobs: "jobsHistory" }),
   },
   methods: {
     onPrint() {
