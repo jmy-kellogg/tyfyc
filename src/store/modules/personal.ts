@@ -1,4 +1,4 @@
-import { type Personal, type PersonalState, type Context}  from "../../types/index.ts"
+import {  type PersonalState, type Context}  from "../../types/index.ts"
 
 
 interface PersonalContext extends Context {
@@ -8,7 +8,7 @@ interface PersonalContext extends Context {
 }
 
 interface StateUpdateData {
-  field: keyof Personal;
+  field:  keyof PersonalState;
   value: string;
 }
 
@@ -26,9 +26,6 @@ export default {
     summary: "",
   }),
   mutations: {
-    updatePersonal(state: PersonalState, personal: Personal) {
-      state = personal
-    },
     updatePersonalData(state: PersonalState, { field, value }: StateUpdateData) {
       if (state.hasOwnProperty(field)) {
         state[field] = value;
@@ -40,8 +37,12 @@ export default {
       const personalData = localStorage.getItem("personal");
       if (personalData) {
         const parseData: PersonalState = JSON.parse(personalData);
-        
-        commit("updatePersonal", parseData);
+        let field:  keyof PersonalState;
+
+        for (field in parseData){
+          const value = parseData[field];
+          commit("updatePersonalData", { field, value });
+        }
       }
     },
     saveToLocalStorage({ state }: PersonalContext) {
