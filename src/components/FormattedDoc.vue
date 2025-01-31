@@ -6,32 +6,15 @@ import { mapState } from "vuex";
 export default defineComponent({
   name: "FormattedDoc",
   data() {
-    const personal = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      city: "",
-      state: "",
-      summary: "",
-    };
-
     return {
-      personal,
-      education: [],
       jobs: [],
       skills: [],
     };
   },
   mounted() {
     if (localStorage) {
-      const personal = localStorage.getItem("personal");
-      const education = localStorage.getItem("education");
       const jobs = localStorage.getItem("jobs");
       const skills = localStorage.getItem("skills");
-
-      if (personal) {
-        this.personal = JSON.parse(personal);
-      }
 
       if (skills) {
         this.skills = JSON.parse(skills);
@@ -39,10 +22,6 @@ export default defineComponent({
 
       if (jobs) {
         this.jobs = JSON.parse(jobs);
-      }
-
-      if (education) {
-        this.education = JSON.parse(education);
       }
     }
   },
@@ -58,6 +37,7 @@ export default defineComponent({
       "gitHub",
       "summary",
     ]),
+    ...mapState("education", { education: "eduHistory" }),
   },
   methods: {
     onPrint() {

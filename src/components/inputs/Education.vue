@@ -1,23 +1,21 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "Education",
-  props: ["education"],
+  computed: {
+    ...mapState("education", { education: "eduHistory" }),
+  },
   methods: {
+    saveEducation() {
+      this.$store.dispatch("education/saveToLocalStorage");
+    },
     addNew() {
-      this.education.push({
-        degree: "",
-        school: "",
-        gradYear: "",
-      });
+      this.$store.dispatch("education/addNew");
     },
     remove(index) {
-      this.education.splice(index, 1);
-      this.saveEducation();
-    },
-    saveEducation() {
-      localStorage.education = JSON.stringify(this.education);
+      this.$store.dispatch("education/remove", index);
     },
   },
 });
@@ -39,7 +37,7 @@ export default defineComponent({
         autocomplete="degree"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="school.degree"
-        @change="saveEducation"
+        @input="saveEducation"
       />
 
       <label for="school" class="block text-sm/6 font-medium">School</label>
@@ -48,7 +46,7 @@ export default defineComponent({
         autocomplete="school"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="school.school"
-        @change="saveEducation"
+        @input="saveEducation"
       />
 
       <label for="grad-year" class="block text-sm/6 font-medium"
@@ -62,7 +60,7 @@ export default defineComponent({
         autocomplete="address-level2"
         class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
         v-model="school.gradYear"
-        @change="saveEducation"
+        @input="saveEducation"
       />
       <button
         type="button"

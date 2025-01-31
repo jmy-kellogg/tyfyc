@@ -40,18 +40,10 @@ export default defineComponent({
   data() {
     const skills = [{ name: "Javascript", id: "js" }];
     const jobs: JobData[] = [];
-    const education: EducationData[] = [
-      {
-        degree: "",
-        school: "",
-        gradYear: "",
-      },
-    ];
 
     return {
       skills,
       jobs,
-      education,
     };
   },
   computed: {
@@ -225,7 +217,7 @@ export default defineComponent({
         </div>
         <SkillsVue :skills="skills" />
         <JobsVue :jobs="jobs" />
-        <EducationVue :education="education" />
+        <EducationVue />
       </div>
     </form>
   </div>
