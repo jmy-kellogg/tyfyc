@@ -1,5 +1,6 @@
 <script lang="ts">
 import Multiselect from "vue-multiselect";
+import { type Skill } from "../../types/index";
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
 
@@ -9,7 +10,7 @@ export default defineComponent({
     Multiselect,
   },
   data() {
-    const options = [
+    const options: Array<Skill> = [
       { name: "JavaScript", id: "js" },
       { name: "TypeScript", id: "typescript" },
       { name: "Python", id: "python" },
@@ -75,7 +76,7 @@ export default defineComponent({
     ...mapState("skills", { skills: "skillsList" }),
   },
   methods: {
-    onSelect(skill) {
+    onSelect(skill: Skill) {
       this.$store.dispatch("skills/addSkill", skill);
     },
     onRemove(removeOption) {
@@ -85,7 +86,7 @@ export default defineComponent({
       }
     },
     addTag(newTag) {
-      const tag = {
+      const tag: Skill = {
         name: newTag,
         id: this.snake_case_string(newTag),
       };

@@ -6,34 +6,6 @@ import SkillsVue from "./inputs/Skills.vue";
 import JobsVue from "./inputs/Jobs.vue";
 import EducationVue from "./inputs/Education.vue";
 
-interface Personal {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  linkedIn: string;
-  gitHub: string;
-  city: string;
-  state: string;
-  summary: string;
-  gradYear: string;
-}
-
-interface JobData {
-  title: string;
-  company: string;
-  location: string;
-  start: string;
-  end: string;
-  description: string;
-}
-
-interface EducationData {
-  degree: string;
-  school: string;
-  gradYear: string;
-}
-
 export default defineComponent({
   name: "ManualForm",
   components: { DocUploaderVue, SkillsVue, JobsVue, EducationVue },
