@@ -49,7 +49,7 @@ export default defineComponent({
               autocomplete="given-name"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="firstName"
-              @change="updateData('firstName', $event.target.value)"
+              @input="updateData('firstName', $event.target.value)"
             />
           </div>
         </div>
@@ -66,7 +66,7 @@ export default defineComponent({
               autocomplete="family-name"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="lastName"
-              @change="updateData('lastName', $event.target.value)"
+              @input="updateData('lastName', $event.target.value)"
             />
           </div>
         </div>
@@ -83,7 +83,7 @@ export default defineComponent({
               autocomplete="email"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="email"
-              @change="updateData('email', $event.target.value)"
+              @input="updateData('email', $event.target.value)"
             />
           </div>
         </div>
@@ -97,7 +97,7 @@ export default defineComponent({
               autocomplete="phone"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="phone"
-              @change="updateData('phone', $event.target.value)"
+              @input="updateData('phone', $event.target.value)"
             />
           </div>
         </div>
@@ -112,7 +112,7 @@ export default defineComponent({
               autocomplete="address-level2"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="city"
-              @change="updateData('city', $event.target.value)"
+              @input="updateData('city', $event.target.value)"
             />
           </div>
         </div>
@@ -127,7 +127,7 @@ export default defineComponent({
               autocomplete="address-level1"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="state"
-              @change="updateData('state', $event.target.value)"
+              @input="updateData('state', $event.target.value)"
             />
           </div>
         </div>
@@ -143,7 +143,7 @@ export default defineComponent({
               autocomplete="linkedin"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="linkedIn"
-              @change="updateData('linkedIn', $event.target.value)"
+              @input="updateData('linkedIn', $event.target.value)"
             />
           </div>
         </div>
@@ -158,7 +158,7 @@ export default defineComponent({
               autocomplete="github"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="gitHub"
-              @change="updateData('gitHub', $event.target.value)"
+              @input="updateData('gitHub', $event.target.value)"
             />
           </div>
         </div>
@@ -175,7 +175,7 @@ export default defineComponent({
               rows="3"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               :value="summary"
-              @change="updateData('summary', $event.target.value)"
+              @input="updateData('summary', $event.target.value)"
             ></textarea>
           </div>
         </div>

@@ -48,11 +48,6 @@ export interface EducationState {
 
 
 //Store
-export interface StateUpdateData {
-  field: string;
-  value: string;
-}
-
 export interface Context {
   commit: Function;
   dispatch: Function;
