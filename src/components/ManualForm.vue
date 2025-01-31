@@ -37,13 +37,6 @@ interface EducationData {
 export default defineComponent({
   name: "ManualForm",
   components: { DocUploaderVue, SkillsVue, JobsVue, EducationVue },
-  data() {
-    const skills = [{ name: "Javascript", id: "js" }];
-
-    return {
-      skills,
-    };
-  },
   computed: {
     ...mapState("personal", [
       "firstName",
@@ -213,7 +206,7 @@ export default defineComponent({
             ></textarea>
           </div>
         </div>
-        <SkillsVue :skills="skills" />
+        <SkillsVue />
         <JobsVue />
         <EducationVue />
       </div>

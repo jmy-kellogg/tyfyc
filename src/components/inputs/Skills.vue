@@ -1,87 +1,87 @@
 <script lang="ts">
-import { defineComponent } from "vue";
 import Multiselect from "vue-multiselect";
+import { defineComponent } from "vue";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "Skills",
-  props: ["skills"],
   components: {
     Multiselect,
   },
   data() {
-    return {
-      options: [
-        { name: "JavaScript", id: "js" },
-        { name: "TypeScript", id: "typescript" },
-        { name: "Python", id: "python" },
-        { name: "Vue.js", id: "vue" },
-        { name: "React", id: "react" },
-        { name: "Django", id: "django" },
-        { name: "Flask", id: "flask" },
-        { name: "Cypress", id: "cypress" },
-        { name: "Jest", id: "jest" },
-        { name: "Chai", id: "chai" },
-        { name: "Mocha", id: "mocha" },
-        { name: "Selenium", id: "selenium" },
-        { name: "ES6", id: "es6" },
-        { name: "HTML", id: "html" },
-        { name: "CSS / Sass", id: "css_sass" },
-        { name: "Bootstrap", id: "bootstrap" },
-        { name: "Material UI", id: "material_ui" },
-        { name: "Figma", id: "figma" },
-        { name: "PO Editor", id: "po_editor" },
-        { name: "Node.js", id: "node" },
-        { name: "NPM", id: "npm" },
-        { name: "WebPack", id: "webpack" },
-        { name: "ESBuild", id: "esbuild" },
-        { name: "ElasticSearch", id: "elasticsearch" },
-        { name: "Redux", id: "redux" },
-        { name: "VueX", id: "vuex" },
-        { name: "Git", id: "git" },
-        { name: "REST", id: "rest" },
-        { name: "API", id: "api" },
-        { name: "SDK", id: "sdk" },
-        { name: "UI / UX", id: "ui_ux" },
-        { name: "Prototyping", id: "prototyping" },
-        { name: "Microservices", id: "microservices" },
-        { name: "Feature Flags", id: "feature_flags" },
-        { name: "Vite", id: "vite" },
-        { name: "Java", id: "java" },
-        { name: "C++", id: "cpp" },
-        { name: "C#", id: "csharp" },
-        { name: "Angular", id: "angular" },
-        { name: "Ruby on Rails", id: "rails" },
-        { name: "SQL", id: "sql" },
-        { name: "PostgreSQL", id: "postgresql" },
-        { name: "NoSQL", id: "nosql" },
-        { name: "MongoDB", id: "mongodb" },
-        { name: "Docker", id: "docker" },
-        { name: "Kubernetes", id: "kubernetes" },
-        { name: "AWS", id: "aws" },
-        { name: "Azure", id: "azure" },
-        { name: "Google Cloud", id: "gcp" },
-        { name: "CI/CD", id: "ci_cd" },
-        { name: "Agile Methodologies", id: "agile" },
-        { name: "Scrum", id: "scrum" },
-        { name: "DevOps", id: "devops" },
-        { name: "Open Source", id: "open_source" },
-        { name: "GraphQL", id: "graphql" },
-        { name: "Machine Learning", id: "ml" },
-        { name: "Data Science", id: "data_science" },
-        { name: "Cybersecurity", id: "cybersecurity" },
-      ],
-    };
+    const options = [
+      { name: "JavaScript", id: "js" },
+      { name: "TypeScript", id: "typescript" },
+      { name: "Python", id: "python" },
+      { name: "Vue.js", id: "vue" },
+      { name: "React", id: "react" },
+      { name: "Django", id: "django" },
+      { name: "Flask", id: "flask" },
+      { name: "Cypress", id: "cypress" },
+      { name: "Jest", id: "jest" },
+      { name: "Chai", id: "chai" },
+      { name: "Mocha", id: "mocha" },
+      { name: "Selenium", id: "selenium" },
+      { name: "ES6", id: "es6" },
+      { name: "HTML", id: "html" },
+      { name: "CSS / Sass", id: "css_sass" },
+      { name: "Bootstrap", id: "bootstrap" },
+      { name: "Material UI", id: "material_ui" },
+      { name: "Figma", id: "figma" },
+      { name: "PO Editor", id: "po_editor" },
+      { name: "Node.js", id: "node" },
+      { name: "NPM", id: "npm" },
+      { name: "WebPack", id: "webpack" },
+      { name: "ESBuild", id: "esbuild" },
+      { name: "ElasticSearch", id: "elasticsearch" },
+      { name: "Redux", id: "redux" },
+      { name: "VueX", id: "vuex" },
+      { name: "Git", id: "git" },
+      { name: "REST", id: "rest" },
+      { name: "API", id: "api" },
+      { name: "SDK", id: "sdk" },
+      { name: "UI / UX", id: "ui_ux" },
+      { name: "Prototyping", id: "prototyping" },
+      { name: "Microservices", id: "microservices" },
+      { name: "Feature Flags", id: "feature_flags" },
+      { name: "Vite", id: "vite" },
+      { name: "Java", id: "java" },
+      { name: "C++", id: "cpp" },
+      { name: "C#", id: "csharp" },
+      { name: "Angular", id: "angular" },
+      { name: "Ruby on Rails", id: "rails" },
+      { name: "SQL", id: "sql" },
+      { name: "PostgreSQL", id: "postgresql" },
+      { name: "NoSQL", id: "nosql" },
+      { name: "MongoDB", id: "mongodb" },
+      { name: "Docker", id: "docker" },
+      { name: "Kubernetes", id: "kubernetes" },
+      { name: "AWS", id: "aws" },
+      { name: "Azure", id: "azure" },
+      { name: "Google Cloud", id: "gcp" },
+      { name: "CI/CD", id: "ci_cd" },
+      { name: "Agile Methodologies", id: "agile" },
+      { name: "Scrum", id: "scrum" },
+      { name: "DevOps", id: "devops" },
+      { name: "Open Source", id: "open_source" },
+      { name: "GraphQL", id: "graphql" },
+      { name: "Machine Learning", id: "ml" },
+      { name: "Data Science", id: "data_science" },
+      { name: "Cybersecurity", id: "cybersecurity" },
+    ];
+    return { options };
+  },
+  computed: {
+    ...mapState("skills", { skills: "skillsList" }),
   },
   methods: {
     onSelect(skill) {
-      this.skills.push(skill);
-      this.saveSkills();
+      this.$store.dispatch("skills/addSkill", skill);
     },
     onRemove(removeOption) {
       const index = this.skills.indexOf(removeOption);
       if (index > -1) {
-        this.skills.splice(index, 1);
-        this.saveSkills();
+        this.$store.dispatch("skills/remove", index);
       }
     },
     addTag(newTag) {
@@ -90,11 +90,7 @@ export default defineComponent({
         id: this.snake_case_string(newTag),
       };
       this.options.push(tag);
-      this.skills.push(tag);
-      this.saveSkills();
-    },
-    saveSkills() {
-      localStorage.skills = JSON.stringify(this.skills);
+      this.onSelect(tag);
     },
     snake_case_string(str) {
       return (

@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import personal from "./modules/personal";
-// import skills from "./modules/skills";
+import skills from "./modules/skills";
 import jobs from "./modules/jobs";
 import education from "./modules/education";
 
@@ -10,11 +10,12 @@ export default createStore({
       dispatch("personal/syncWithLocalStorage");
       dispatch("education/syncWithLocalStorage");
       dispatch("jobs/syncWithLocalStorage");
+      dispatch("skills/syncWithLocalStorage");
     },
   },
   modules: {
     personal,
-    // skills,
+    skills,
     jobs,
     education,
   },

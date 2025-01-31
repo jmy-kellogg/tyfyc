@@ -5,20 +5,6 @@ import { mapState } from "vuex";
 
 export default defineComponent({
   name: "FormattedDoc",
-  data() {
-    return {
-      skills: [],
-    };
-  },
-  mounted() {
-    if (localStorage) {
-      const skills = localStorage.getItem("skills");
-
-      if (skills) {
-        this.skills = JSON.parse(skills);
-      }
-    }
-  },
   computed: {
     ...mapState("personal", [
       "firstName",
@@ -33,6 +19,7 @@ export default defineComponent({
     ]),
     ...mapState("education", { education: "eduHistory" }),
     ...mapState("jobs", { jobs: "jobsHistory" }),
+    ...mapState("skills", { skills: "skillsList" }),
   },
   methods: {
     onPrint() {
