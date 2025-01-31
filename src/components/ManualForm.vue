@@ -38,19 +38,6 @@ export default defineComponent({
   name: "ManualForm",
   components: { DocUploaderVue, SkillsVue, JobsVue, EducationVue },
   data() {
-    const personal: Personal = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      linkedIn: "",
-      gitHub: "",
-      city: "",
-      state: "",
-      summary: "",
-      gradYear: "",
-    };
-
     const skills = [{ name: "Javascript", id: "js" }];
     const jobs: JobData[] = [];
     const education: EducationData[] = [
@@ -62,52 +49,25 @@ export default defineComponent({
     ];
 
     return {
-      personal,
       skills,
       jobs,
       education,
     };
   },
-  mounted() {
-    if (localStorage) {
-      const personal = localStorage.getItem("personal");
-      const education = localStorage.getItem("education");
-      const jobs = localStorage.getItem("jobs");
-      const skills = localStorage.getItem("skills");
-
-      if (personal) {
-        this.personal = JSON.parse(personal);
-      }
-
-      if (skills) {
-        this.skills = JSON.parse(skills);
-      }
-
-      if (jobs) {
-        this.jobs = JSON.parse(jobs);
-      }
-
-      if (education) {
-        this.education = JSON.parse(education);
-      }
-    }
-  },
   computed: {
-    ...mapState("personal", ["firstName"]),
+    ...mapState("personal", [
+      "firstName",
+      "lastName",
+      "email",
+      "phone",
+      "city",
+      "state",
+      "linkedIn",
+      "gitHub",
+      "summary",
+    ]),
   },
   methods: {
-    onSubmit(event) {
-      if (event) {
-        event.preventDefault();
-      }
-      localStorage.personal = JSON.stringify(this.personal);
-      localStorage.skills = JSON.stringify(this.skills);
-      localStorage.jobs = JSON.stringify(this.jobs);
-      localStorage.education = JSON.stringify(this.education);
-    },
-    savePersonal() {
-      localStorage.personal = JSON.stringify(this.personal);
-    },
     async updateData(field, value) {
       this.$store.dispatch("personal/updateData", { field, value });
     },
@@ -149,8 +109,8 @@ export default defineComponent({
               id="last-name"
               autocomplete="family-name"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.lastName"
-              @change="savePersonal"
+              :value="lastName"
+              @change="updateData('lastName', $event.target.value)"
             />
           </div>
         </div>
@@ -166,8 +126,8 @@ export default defineComponent({
               type="email"
               autocomplete="email"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.email"
-              @change="savePersonal"
+              :value="email"
+              @change="updateData('email', $event.target.value)"
             />
           </div>
         </div>
@@ -180,8 +140,8 @@ export default defineComponent({
               type="phone"
               autocomplete="phone"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.phone"
-              @change="savePersonal"
+              :value="phone"
+              @change="updateData('phone', $event.target.value)"
             />
           </div>
         </div>
@@ -195,8 +155,8 @@ export default defineComponent({
               id="city"
               autocomplete="address-level2"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.city"
-              @change="savePersonal"
+              :value="city"
+              @change="updateData('city', $event.target.value)"
             />
           </div>
         </div>
@@ -210,8 +170,8 @@ export default defineComponent({
               id="state"
               autocomplete="address-level1"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.state"
-              @change="savePersonal"
+              :value="state"
+              @change="updateData('state', $event.target.value)"
             />
           </div>
         </div>
@@ -226,8 +186,8 @@ export default defineComponent({
               type="linkedin"
               autocomplete="linkedin"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.linkedIn"
-              @change="savePersonal"
+              :value="linkedIn"
+              @change="updateData('linkedIn', $event.target.value)"
             />
           </div>
         </div>
@@ -241,8 +201,8 @@ export default defineComponent({
               type="github"
               autocomplete="github"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.gitHub"
-              @change="savePersonal"
+              :value="gitHub"
+              @change="updateData('gitHub', $event.target.value)"
             />
           </div>
         </div>
@@ -258,8 +218,8 @@ export default defineComponent({
               id="summary"
               rows="3"
               class="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="personal.summary"
-              @change="savePersonal"
+              :value="summary"
+              @change="updateData('summary', $event.target.value)"
             ></textarea>
           </div>
         </div>

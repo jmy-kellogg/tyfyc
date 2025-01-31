@@ -5,12 +5,11 @@ export default {
     lastName: "",
     email: "",
     phone: "",
-    linkedIn: "",
-    gitHub: "",
     city: "",
     state: "",
+    linkedIn: "",
+    gitHub: "",
     summary: "",
-    gradYear: "",
   }),
   mutations: {
     updatePersonal(state, { field, value }) {
@@ -20,19 +19,18 @@ export default {
     },
   },
   actions: {
-    syncWithLocalStorage({ commit, state }) {
-      const personal = localStorage.getItem("personalData");
-      if (personal) {
-        const data = JSON.parse(personal);
-        Object.keys(data).forEach((field) => {
-          const value = data[field];
+    syncWithLocalStorage({ commit }) {
+      const personalData = localStorage.getItem("personal");
+      if (personalData) {
+        const parseData = JSON.parse(personalData);
+        Object.keys(parseData).forEach((field) => {
+          const value = parseData[field];
           commit("updatePersonal", { field, value });
         });
       }
     },
     saveToLocalStorage({ state }) {
-      // ToDo: change personalData to personal once all fields are updated
-      localStorage.setItem("personalData", JSON.stringify(state));
+      localStorage.setItem("personal", JSON.stringify(state));
     },
     async updateData({ commit, dispatch }, data) {
       await commit("updatePersonal", data);

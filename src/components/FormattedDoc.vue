@@ -1,6 +1,7 @@
 <script lang="ts">
 import html2pdf from "html2pdf.js";
 import { defineComponent } from "vue";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "FormattedDoc",
@@ -45,6 +46,19 @@ export default defineComponent({
       }
     }
   },
+  computed: {
+    ...mapState("personal", [
+      "firstName",
+      "lastName",
+      "email",
+      "phone",
+      "city",
+      "state",
+      "linkedIn",
+      "gitHub",
+      "summary",
+    ]),
+  },
   methods: {
     onPrint() {
       const element = document.getElementById("element-to-convert");
@@ -68,18 +82,19 @@ export default defineComponent({
   <div>
     <div class="page">
       <div id="element-to-convert">
-        <h1>{{ personal.firstName }} {{ personal.lastName }}</h1>
+        <h1>{{ firstName }} {{ lastName }}</h1>
         <p>
-          Email: {{ personal.email }} | Phone: {{ personal.phone }} | Location:
-          {{ personal.city }}, {{ personal.state }} |
+          Email: {{ email }} | Phone: {{ phone }} | Location: {{ city }},
+          {{ state }} |
         </p>
         <p>
-          LinkedIn: linkedin.com/in/{{ personal.linkedIn }} | GitHub:
-          github.com/{{ personal.gitHub }}
+          LinkedIn: linkedin.com/in/{{ linkedIn }} | GitHub: github.com/{{
+            gitHub
+          }}
         </p>
         <h2>Summary</h2>
         <p>
-          {{ personal.summary }}
+          {{ summary }}
         </p>
         <h3>Skills</h3>
         <ul>
