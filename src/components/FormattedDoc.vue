@@ -1,5 +1,6 @@
 <script lang="ts">
 import html2pdf from "html2pdf.js";
+
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
 

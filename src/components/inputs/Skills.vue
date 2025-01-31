@@ -1,8 +1,9 @@
 <script lang="ts">
 import Multiselect from "vue-multiselect";
-import { type Skill } from "../../types/index";
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
+
+import { type Skill } from "../../types/index";
 
 export default defineComponent({
   name: "Skills",
@@ -79,21 +80,21 @@ export default defineComponent({
     onSelect(skill: Skill) {
       this.$store.dispatch("skills/addSkill", skill);
     },
-    onRemove(removeOption) {
+    onRemove(removeOption: Skill) {
       const index = this.skills.indexOf(removeOption);
       if (index > -1) {
         this.$store.dispatch("skills/remove", index);
       }
     },
-    addTag(newTag) {
+    addTag(newSkill: string) {
       const tag: Skill = {
-        name: newTag,
-        id: this.snake_case_string(newTag),
+        name: newSkill,
+        id: this.snake_case_string(newSkill),
       };
       this.options.push(tag);
       this.onSelect(tag);
     },
-    snake_case_string(str) {
+    snake_case_string(str: string) {
       return (
         str &&
         str

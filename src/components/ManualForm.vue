@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
+
 import DocUploaderVue from "./inputs/DocUploader.vue";
 import SkillsVue from "./inputs/Skills.vue";
 import JobsVue from "./inputs/Jobs.vue";
