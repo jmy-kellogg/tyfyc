@@ -10,21 +10,26 @@ export default defineComponent({
     onFilePicked(event) {
       const files = event.target.files;
       const file = files[0];
+      const fileReader = new FileReader();
+
+      fileReader.addEventListener("load", () => {
+        this.embedSrc = fileReader.result;
+      });
+
+      fileReader.readAsDataURL(file);
+
+      // Todo: clean up and parse file
       // const filePath = event.target.value;
       // const url = URL.createObjectURL(files[0]);
       // const blob = new Uint8Array(files[0]);
-      const fileReader = new FileReader();
-      fileReader.addEventListener("load", async () => {
-        this.embedSrc = fileReader.result;
-      });
-      console.log("file: ", file);
+
+      // console.log("file: ", file);
       // console.log("file path: ", filePath);
       // console.log("url: ", url);
       // console.log("blob: ", blob);
 
       // fileReader.readAsText(file);
       // fileReader.readAsArrayBuffer(file, "utf-8");
-      fileReader.readAsDataURL(file);
     },
   },
 });
