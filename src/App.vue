@@ -8,7 +8,7 @@ export default defineComponent({
   name: "App",
   components: { ManualForm, FormattedDoc },
   data() {
-    return { view: "preview" };
+    return { view: "form" };
   },
   mounted() {
     this.$store.dispatch("getStateFromLocalStorage");

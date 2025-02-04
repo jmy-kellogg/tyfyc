@@ -3,6 +3,30 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "DocUploader",
+  data() {
+    return { embedSrc: "" };
+  },
+  methods: {
+    onFilePicked(event) {
+      const files = event.target.files;
+      const file = files[0];
+      // const filePath = event.target.value;
+      // const url = URL.createObjectURL(files[0]);
+      // const blob = new Uint8Array(files[0]);
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", async () => {
+        this.embedSrc = fileReader.result;
+      });
+      console.log("file: ", file);
+      // console.log("file path: ", filePath);
+      // console.log("url: ", url);
+      // console.log("blob: ", blob);
+
+      // fileReader.readAsText(file);
+      // fileReader.readAsArrayBuffer(file, "utf-8");
+      fileReader.readAsDataURL(file);
+    },
+  },
 });
 </script>
 
@@ -39,6 +63,8 @@ export default defineComponent({
               name="file-upload"
               type="file"
               class="sr-only"
+              accept="application/pdf"
+              @change="onFilePicked"
             />
           </label>
           <p class="pl-1">or drag and drop</p>
@@ -46,6 +72,15 @@ export default defineComponent({
         <p class="text-xs/5 text-gray-600">PDF, PNG, JPG, up to 10MB</p>
       </div>
     </div>
+  </div>
+  <div v-if="!!embedSrc">
+    <h2>Preview</h2>
+    <embed
+      type="application/pdf"
+      :src="embedSrc"
+      width="100%"
+      style="max-height: 50rem; min-height: 20rem"
+    />
   </div>
 </template>
 <style scoped></style>
