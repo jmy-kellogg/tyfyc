@@ -19,6 +19,7 @@ npm install
 ```
 npm run dev
 ```
+The app will run locally http://localhost:3000/
 
 ### Compiles and minifies for production
 ```
@@ -28,15 +29,19 @@ npm run build
 ## Project Structure
 ```
 tyfyc/
-│── public/             # Static assets
+│── public/                 # Static assets
 │── src/
-│   ├── components/     # Vue components
-│   ├── App.vue         # Root component
-│   ├── main.js         # Entry file
-│── index.html          # Html
-│── package.json        # Dependencies and scripts
-│── vite.config.js      # Vite configuration
-│── README.md           # Project documentation
+│   ├── client/             # Client - frontend
+│       ├── components/     # Vue components
+│       ├── store/          # Vuex store
+│       ├── types/          # TypeScript interfaces
+│       ├── App.vue         # Root component
+│       ├── main.ts         # Entry file
+│   ├── server/             # Server - backend
+│── index.html              # Html
+│── package.json            # Dependencies and scripts
+│── vite.config.js          # Vite configuration
+│── README.md               # Project documentation
 ```
 
 ## Technologies Used
