@@ -34,8 +34,8 @@ export default defineComponent({
 <template>
   <div class="bg-white p-5">
     <form>
-      <!-- <DocUploaderVue /> -->
-      <h2><b>Personal Info:</b></h2>
+      <DocUploaderVue />
+      <h2><b>Personal</b></h2>
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-3">
           <label for="first-name" class="block text-sm/6 font-medium"

@@ -7,9 +7,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="col-span-full">
+  <div class="mb-4 col-span-full">
     <label for="resume-uploader" class="block text-sm/6 font-medium">
-      <h2><b>Upload Resume</b></h2>
+      <h2><b>Upload </b></h2>
     </label>
     <div
       class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
@@ -33,7 +33,7 @@ export default defineComponent({
             for="file-upload"
             class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500"
           >
-            <span>Upload a file</span>
+            <span>Upload Resume</span>
             <input
               id="file-upload"
               name="file-upload"
