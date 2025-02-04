@@ -1,4 +1,4 @@
-import { type Job, type JobsState, type Context}  from "../../types/index.ts"
+import { type Job, type JobsState, type Context}  from "../../types/index"
 
 interface JobsContext extends Context {
   state: JobsState

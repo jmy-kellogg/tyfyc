@@ -1,4 +1,4 @@
-import { type Education, type EducationState, type Context}  from "../../types/index.ts"
+import { type Education, type EducationState, type Context}  from "../../types/index"
 
 
 interface EduContext extends Context {
