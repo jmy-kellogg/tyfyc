@@ -1,20 +1,59 @@
-<script setup lang="ts">
-import { onMounted } from "vue";
-import { useStore } from "vuex";
+<script lang="ts">
+import { defineComponent } from "vue";
 
 import ManualForm from "./components/ManualForm.vue";
 import FormattedDoc from "./components/FormattedDoc.vue";
 
-onMounted(() => {
-  const store = useStore();
-  store.dispatch("getStateFromLocalStorage");
+export default defineComponent({
+  name: "App",
+  components: { ManualForm, FormattedDoc },
+  data() {
+    return { view: "preview" };
+  },
+  mounted() {
+    this.$store.dispatch("getStateFromLocalStorage");
+  },
+  computed: {
+    showForm() {
+      return this.view == "form";
+    },
+    showPreview() {
+      return this.view == "preview";
+    },
+  },
 });
 </script>
 
 <template>
   <div class="flex">
-    <ManualForm />
-    <FormattedDoc />
+    <button
+      class="m-1 ml-0 w-24 rounded-t-lg p-3 hover:cursor-pointer hover:font-bold"
+      :class="{
+        'font-bold': showForm,
+        'bg-white': showForm,
+        'mb-0': showForm,
+        'rounded-lg': !showForm,
+      }"
+      @click="view = 'form'"
+    >
+      <h3>Input</h3>
+    </button>
+    <button
+      class="m-1 ml-0 w-24 rounded-t-lg p-3 hover:cursor-pointer hover:font-bold"
+      :class="{
+        'font-bold': showPreview,
+        'bg-white': showPreview,
+        'mb-0': showPreview,
+        'rounded-lg': !showPreview,
+      }"
+      @click="view = 'preview'"
+    >
+      <h3>Preview</h3>
+    </button>
+  </div>
+  <div class="flex bg-white">
+    <ManualForm v-if="showForm" />
+    <FormattedDoc v-if="showPreview" />
   </div>
 </template>
 

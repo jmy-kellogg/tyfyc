@@ -32,7 +32,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="m-3 h-screen overflow-scroll">
+  <div class="bg-white p-5">
     <form>
       <!-- <DocUploaderVue /> -->
       <h2><b>Personal Info:</b></h2>

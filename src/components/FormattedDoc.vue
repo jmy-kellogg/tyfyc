@@ -98,7 +98,6 @@ export default defineComponent({
 
 <style scoped>
 .page {
-  outline-style: solid;
   padding: 15px 0px;
 }
 
