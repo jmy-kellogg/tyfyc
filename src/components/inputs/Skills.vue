@@ -113,7 +113,7 @@ export default defineComponent({
   <div class="col-span-full">
     <h2><b>Skills</b></h2>
     <label for="skills" class="block text-sm/6 font-medium">
-      <h2><b>technologies</b></h2>
+      Technologies
     </label>
     <multiselect
       id="skills"
