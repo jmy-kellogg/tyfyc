@@ -13,7 +13,9 @@ pdfParser.on("pdfParser_dataError", (errData) =>
   console.error(errData.parserError)
 );
 pdfParser.on("pdfParser_dataReady", (pdfData) => {
-  console.log({ textContent: pdfParser.getRawTextContent() });
+  const parsedText = pdfParser.getRawTextContent();
+  const textData = parsedText.split("\r\n");
+  console.log({ pdfData, textData, parsedText });
 });
 
 // ToDo: find a better upload solution

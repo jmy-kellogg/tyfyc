@@ -1,5 +1,5 @@
 <script lang="ts">
-import html2pdf from "html2pdf.js";
+import jsPDF from "jspdf";
 
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
@@ -25,17 +25,18 @@ export default defineComponent({
   methods: {
     onPrint() {
       const element = document.getElementById("element-to-convert");
-      html2pdf()
-        .from(element)
-        .set({
-          filename: "generated-pdf.pdf",
-          margin: 1,
-          pagebreak: {
-            mode: "avoid-all",
-            before: "#page2el",
-          },
-        })
-        .save();
+      const doc = new jsPDF();
+
+      doc.html(element, {
+        callback: function (doc) {
+          // Save the PDF
+          doc.save("sample-document.pdf");
+        },
+        x: 15,
+        y: 15,
+        width: 170, //target width in the PDF document
+        windowWidth: 650, //window width in CSS pixels
+      });
     },
   },
 });
@@ -45,7 +46,7 @@ export default defineComponent({
   <div>
     <div class="page">
       <div id="element-to-convert">
-        <h1>{{ firstName }} {{ lastName }}</h1>
+        <h1 id="firstName">{{ firstName }} {{ lastName }}</h1>
         <p>
           Email: {{ email }} | Phone: {{ phone }} | Location: {{ city }},
           {{ state }} |
