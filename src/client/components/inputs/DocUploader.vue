@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "DocUploader",
@@ -7,16 +8,28 @@ export default defineComponent({
     return { embedSrc: "" };
   },
   methods: {
-    onFilePicked(event) {
+    async onFilePicked(event) {
       const files = event.target.files;
       const file = files[0];
       const fileReader = new FileReader();
 
-      fileReader.addEventListener("load", () => {
+      fileReader.addEventListener("load", async () => {
+        // Add to Preview
         this.embedSrc = fileReader.result;
+
+        // Send to be parsed by the API
+        let formData = new FormData();
+        formData.append("file", file);
+        await axios.post("http://localhost:3000/parser", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
       });
 
       fileReader.readAsDataURL(file);
+      // fileReader.readAsText(file);
+      // fileReader.readAsArrayBuffer(file);
 
       // Todo: clean up and parse file
       // const filePath = event.target.value;
@@ -27,9 +40,6 @@ export default defineComponent({
       // console.log("file path: ", filePath);
       // console.log("url: ", url);
       // console.log("blob: ", blob);
-
-      // fileReader.readAsText(file);
-      // fileReader.readAsArrayBuffer(file, "utf-8");
     },
   },
 });
