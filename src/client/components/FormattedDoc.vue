@@ -79,9 +79,9 @@ export default defineComponent({
         <div>
           <h2>Professional Experience</h2>
           <div v-for="(job, index) in jobs" :key="index">
-            <h3>{{ job.title.trim() }}</h3>
-            <p>{{ job.company.trim() }} – {{ job.location.trim() }}</p>
-            <p>{{ job.start.trim() }} – {{ job.end.trim() }}</p>
+            <h3>{{ job.title }}</h3>
+            <p>{{ job.company }} - {{ job.location }}</p>
+            <p>{{ job.start }} - {{ job.end }}</p>
             <p>
               {{ job.description }}
             </p>
@@ -94,7 +94,7 @@ export default defineComponent({
             <p>
               {{ school.degree }}
             </p>
-            <p>{{ school.school }} – {{ school.gradYear }}</p>
+            <p>{{ school.school }} - {{ school.gradYear }}</p>
             <p>{{ divider }}</p>
           </div>
         </div>

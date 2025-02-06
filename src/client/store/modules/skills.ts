@@ -31,6 +31,9 @@ export default {
     saveToLocalStorage({ state }: SkillsContext) {
       localStorage.setItem("skills", JSON.stringify(state.skillsList));
     },
+    updateSkills({ commit }: SkillsContext, skills:  Array<Skill>) {
+        commit("updateSkills", skills);
+    },
     async addSkill({ commit, dispatch }: SkillsContext, skill: Skill) {
       await commit("addSkill", skill);
       dispatch("saveToLocalStorage");

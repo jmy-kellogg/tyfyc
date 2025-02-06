@@ -20,26 +20,41 @@ export default defineComponent({
         // Send to be parsed by the API
         let formData = new FormData();
         formData.append("file", file);
-        await axios.post("http://localhost:3000/parser", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+
+        const response = await axios.post(
+          "http://localhost:3000/parser",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // ToDo: move the request and updates to the store
+        // also make sure to sync with localStorage
+        const parsedData = response.data;
+        this.updatePersonalData(parsedData.personal);
+        this.updateSkillsData(parsedData.skills);
+        this.updateJobsData(parsedData.jobs);
+        this.updateEducationData(parsedData.education);
       });
 
       fileReader.readAsDataURL(file);
-      // fileReader.readAsText(file);
-      // fileReader.readAsArrayBuffer(file);
-
-      // Todo: clean up and parse file
-      // const filePath = event.target.value;
-      // const url = URL.createObjectURL(files[0]);
-      // const blob = new Uint8Array(files[0]);
-
-      // console.log("file: ", file);
-      // console.log("file path: ", filePath);
-      // console.log("url: ", url);
-      // console.log("blob: ", blob);
+    },
+    updatePersonalData(personalData) {
+      for (let field in personalData) {
+        const value = personalData[field];
+        this.$store.dispatch("personal/updateData", { field, value });
+      }
+    },
+    updateSkillsData(skillsData) {
+      this.$store.dispatch("skills/updateSkills", skillsData);
+    },
+    updateJobsData(jobsData) {
+      this.$store.dispatch("jobs/updateJobs", jobsData);
+    },
+    updateEducationData(eduData) {
+      this.$store.dispatch("education/updateEducation", eduData);
     },
   },
 });
@@ -88,7 +103,7 @@ export default defineComponent({
       </div>
     </div>
   </div>
-  <div v-if="!!embedSrc">
+  <!-- <div v-if="!!embedSrc">
     <h2>Preview</h2>
     <embed
       type="application/pdf"
@@ -96,6 +111,6 @@ export default defineComponent({
       width="100%"
       style="max-height: 50rem; min-height: 20rem"
     />
-  </div>
+  </div> -->
 </template>
 <style scoped></style>

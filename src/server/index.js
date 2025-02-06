@@ -80,7 +80,7 @@ const parseTextData = (rawText) => {
   let respEdu = [];
   education.forEach((element) => {
     const edu = element.split("|||").filter((str) => !!str.trim());
-    if (edu.length == 2) {
+    if (("school line", edu.length == 2)) {
       respEdu.push({
         degree: edu[0],
         school: edu[1]?.split(" - ")[0]?.trim(),
@@ -125,7 +125,7 @@ app.post("/parser", upload.single("file"), async (req, res) => {
   pdfParser.on("pdfParser_dataReady", (pdfData) => {
     const rawText = pdfParser.getRawTextContent();
     const textData = parseTextData(rawText);
-    return res.status(200).send({ data: textData });
+    return res.status(200).send(textData);
   });
 });
 

@@ -44,6 +44,9 @@ export default {
     saveToLocalStorage({ state }: EduContext) {
       localStorage.setItem("education", JSON.stringify(state.educationList));
     },
+    updateEducation({ commit }: EduContext, educationList: Array<Education>) {
+        commit("updateEducation", educationList);
+    },
     addNew({ commit }: EduContext) {
       commit("addNew");
     },

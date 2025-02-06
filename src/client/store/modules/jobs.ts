@@ -48,6 +48,9 @@ export default {
     saveToLocalStorage({ state }: JobsContext) {
       localStorage.setItem("jobs", JSON.stringify(state.jobsList));
     },
+    updateJobs( {commit }: JobsContext, jobs:  Array<Job>) {
+        commit("updateJobs", jobs);
+    },
     addNew({ commit }: JobsContext) {
       commit("addNew");
     },
