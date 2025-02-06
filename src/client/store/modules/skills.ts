@@ -7,7 +7,7 @@ interface SkillsContext extends Context {
 export default {
   namespaced: true,
   state: () => ({
-    skillsList: [{ name: "JavaScript", id: "js" }],
+    skillsList: [{ name: "JavaScript", id: "javascript" }],
   }),
   mutations: {
     updateSkills(state: SkillsState, skills:  Array<Skill>) {

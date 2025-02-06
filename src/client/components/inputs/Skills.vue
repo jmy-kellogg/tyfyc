@@ -12,7 +12,7 @@ export default defineComponent({
   },
   data() {
     const options: Array<Skill> = [
-      { name: "JavaScript", id: "js" },
+      { name: "JavaScript", id: "javascript" },
       { name: "TypeScript", id: "typescript" },
       { name: "Python", id: "python" },
       { name: "Vue.js", id: "vue" },
@@ -67,7 +67,7 @@ export default defineComponent({
       { name: "DevOps", id: "devops" },
       { name: "Open Source", id: "open_source" },
       { name: "GraphQL", id: "graphql" },
-      { name: "Machine Learning", id: "ml" },
+      { name: "Machine Learning", id: "machine_learning" },
       { name: "Data Science", id: "data_science" },
       { name: "Cybersecurity", id: "cybersecurity" },
     ];

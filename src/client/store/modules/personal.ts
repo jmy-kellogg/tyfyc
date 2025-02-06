@@ -15,7 +15,7 @@ interface StateUpdateData {
 export default {
   namespaced: true,
   state: (): PersonalState => ({
-    firstName: "Jess",
+    firstName: "",
     lastName: "",
     email: "",
     phone: "",

@@ -21,12 +21,22 @@ export default defineComponent({
     ...mapState("education", { education: "educationList" }),
     ...mapState("jobs", { jobs: "jobsList" }),
     ...mapState("skills", { skills: "skillsList" }),
+    // Note: this is to allow us to see sections when importing pdf, until we have a more robust parser
+    divider() {
+      let index = 75;
+      let line = "";
+      while (index > 0) {
+        index--;
+        line += "_";
+      }
+      return line;
+    },
   },
   methods: {
     onPrint() {
       const element = document.getElementById("element-to-convert");
       const doc = new jsPDF();
-
+      console.log(this.jobs);
       doc.html(element, {
         callback: function (doc) {
           // Save the PDF
@@ -46,44 +56,47 @@ export default defineComponent({
   <div>
     <div class="page">
       <div id="element-to-convert">
-        <h1 id="firstName">{{ firstName }} {{ lastName }}</h1>
-        <p>
-          Email: {{ email }} | Phone: {{ phone }} | Location: {{ city }},
-          {{ state }} |
-        </p>
-        <p>
-          LinkedIn: linkedin.com/in/{{ linkedIn }} | GitHub: github.com/{{
-            gitHub
-          }}
-        </p>
-        <h2>Summary</h2>
-        <p>
-          {{ summary }}
-        </p>
-        <h3>Skills</h3>
-        <ul>
-          <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
-        </ul>
-        <h2>Professional Experience</h2>
-
-        <div v-for="(job, index) in jobs" :key="index">
-          <h3>{{ job.title }}</h3>
-
+        <div>
+          <h1>{{ firstName }} {{ lastName }}</h1>
           <p>
-            <b>{{ job.company }}</b> – {{ job.location }}
+            Email: {{ email }} | Phone: {{ phone }} | Location: {{ city }},
+            {{ state }} |
           </p>
-          <p>{{ job.start }} – {{ job.end }}</p>
-
           <p>
-            {{ job.description }}
+            LinkedIn: linkedin.com/in/{{ linkedIn }} | GitHub: github.com/{{
+              gitHub
+            }}
           </p>
+          <h2>Summary</h2>
         </div>
-        <h2>Education</h2>
-        <div v-for="(school, index) in education" :key="index">
-          <p>
-            <b>{{ school.degree }}</b>
-          </p>
-          <p>{{ school.school }} – {{ school.gradYear }}</p>
+        <div>
+          <p>{{ summary }}</p>
+          <h3>Skills</h3>
+          <ul>
+            <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Professional Experience</h2>
+          <div v-for="(job, index) in jobs" :key="index">
+            <h3>{{ job.title.trim() }}</h3>
+            <p>{{ job.company.trim() }} – {{ job.location.trim() }}</p>
+            <p>{{ job.start.trim() }} – {{ job.end.trim() }}</p>
+            <p>
+              {{ job.description }}
+            </p>
+            <p>{{ divider }}</p>
+          </div>
+        </div>
+        <div>
+          <h2>Education</h2>
+          <div v-for="(school, index) in education" :key="index">
+            <p>
+              {{ school.degree }}
+            </p>
+            <p>{{ school.school }} – {{ school.gradYear }}</p>
+            <p>{{ divider }}</p>
+          </div>
         </div>
       </div>
     </div>
