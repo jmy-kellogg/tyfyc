@@ -5,22 +5,27 @@ import axios from "axios";
 export default defineComponent({
   name: "DocUploader",
   data() {
-    return { embedSrc: "" };
+    return { embedSrc: "", errorMsg: "" };
   },
   methods: {
+    addPreview(file) {
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", async () => {
+        this.embedSrc = fileReader.result;
+      });
+      fileReader.readAsDataURL(file);
+    },
     async onFilePicked(event) {
       const files = event.target.files;
       const file = files[0];
-      const fileReader = new FileReader();
 
-      fileReader.addEventListener("load", async () => {
-        // Add to Preview
-        this.embedSrc = fileReader.result;
+      this.errorMsg = "";
 
-        // Send to be parsed by the API
-        let formData = new FormData();
-        formData.append("file", file);
+      // Send to be parsed by the API
+      let formData = new FormData();
+      formData.append("file", file);
 
+      try {
         const response = await axios.post(
           "http://localhost:3000/parser",
           formData,
@@ -33,13 +38,14 @@ export default defineComponent({
         // ToDo: move the request and updates to the store
         // also make sure to sync with localStorage
         const parsedData = response.data;
+
         this.updatePersonalData(parsedData.personal);
         this.updateSkillsData(parsedData.skills);
         this.updateJobsData(parsedData.jobs);
         this.updateEducationData(parsedData.education);
-      });
-
-      fileReader.readAsDataURL(file);
+      } catch {
+        this.errorMsg = "Invalid Resume Added";
+      }
     },
     updatePersonalData(personalData) {
       for (let field in personalData) {
@@ -87,7 +93,7 @@ export default defineComponent({
             for="file-upload"
             class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500"
           >
-            <span>Upload Resume</span>
+            <span>Upload TYFYC Created Resume</span>
             <input
               id="file-upload"
               name="file-upload"
@@ -99,9 +105,28 @@ export default defineComponent({
           </label>
           <p class="pl-1">or drag and drop</p>
         </div>
-        <p class="text-xs/5 text-gray-600">PDF, PNG, JPG, up to 10MB</p>
+        <p class="text-xs/5 text-gray-600">PDF up to 10MB</p>
       </div>
     </div>
+  </div>
+  <div
+    v-if="errorMsg"
+    class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+    role="alert"
+  >
+    <svg
+      class="shrink-0 inline w-4 h-4 me-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
+      <path
+        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+      />
+    </svg>
+    <span class="sr-only">Info</span>
+    <span class="font-medium">{{ errorMsg }}</span>
   </div>
   <!-- <div v-if="!!embedSrc">
     <h2>Preview</h2>

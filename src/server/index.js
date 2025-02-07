@@ -144,9 +144,13 @@ app.post("/parser", upload.single("file"), async (req, res) => {
   });
 
   pdfParser.on("pdfParser_dataReady", (pdfData) => {
-    const rawText = pdfParser.getRawTextContent();
-    const textData = parseTextData(rawText);
-    return res.status(200).send(textData);
+    if (pdfData.Meta.Author === "tyfyc") {
+      const rawText = pdfParser.getRawTextContent();
+      const textData = parseTextData(rawText);
+      return res.status(200).send(textData);
+    } else {
+      return res.status(400).send({ error: "Can only accept TYFYC resumes" });
+    }
   });
 });
 

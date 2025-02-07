@@ -36,10 +36,14 @@ export default defineComponent({
     onPrint() {
       const element = document.getElementById("element-to-convert");
       const doc = new jsPDF();
-      console.log(this.jobs);
+
+      // extra details we can reference when importing
+      doc.setProperties({
+        author: "tyfyc",
+        keywords: "resume",
+      });
       doc.html(element, {
         callback: function (doc) {
-          // Save the PDF
           doc.save("sample-document.pdf");
         },
         x: 15,
