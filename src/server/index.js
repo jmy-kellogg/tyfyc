@@ -4,7 +4,23 @@ import cors from "cors";
 import multer from "multer";
 import PDFParser from "pdf2json";
 
-import { snake_case_string, divider } from "../utils";
+// ToDo: move to utils
+// import { snake_case_string, divider } from "../utils/index.ts";
+export const snake_case_string = (str) => {
+  const regex =
+    /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g;
+  const regexOutput = str.match(regex) || [];
+  return regexOutput.map((s) => s?.toLowerCase()).join("_");
+};
+export const divider = () => {
+  let index = 75;
+  let line = "";
+  while (index > 0) {
+    index--;
+    line += "_";
+  }
+  return line;
+};
 
 const app = express();
 app.use(cors());
