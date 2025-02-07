@@ -13,7 +13,7 @@ export const snake_case_string = (str) => {
   return regexOutput.map((s) => s?.toLowerCase()).join("_");
 };
 export const divider = () => {
-  let index = 75;
+  let index = 100;
   let line = "";
   while (index > 0) {
     index--;
@@ -53,7 +53,7 @@ const getSkills = (textData = []) => {
   const skills = textData
     .slice(
       textData.indexOf("Skills") + 1,
-      textData.indexOf("Professional Experience")
+      textData.indexOf("Professional Experience") - 1
     )
     .map((skill) => ({
       name: skill,

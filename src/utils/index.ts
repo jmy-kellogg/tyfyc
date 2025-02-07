@@ -8,7 +8,7 @@ export const snake_case_string = (str: string): string => {
 
 // This is to allow us to see sections when importing pdf, until we have a more robust parser
 export const divider = (): string => {
-  let index = 75;
+  let index = 100;
   let line = "";
   while (index > 0) {
     index--;

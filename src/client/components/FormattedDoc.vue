@@ -23,34 +23,13 @@ export default defineComponent({
     ...mapState("skills", { skills: "skillsList" }),
     divider,
   },
-  methods: {
-    onPrint() {
-      const element = document.getElementById("element-to-convert");
-      const doc = new jsPDF();
-
-      // extra details we can reference when importing
-      doc.setProperties({
-        author: "tyfyc",
-        keywords: "resume",
-      });
-      doc.html(element, {
-        callback: function (doc) {
-          doc.save("sample-document.pdf");
-        },
-        x: 15,
-        y: 15,
-        width: 170, //target width in the PDF document
-        windowWidth: 650, //window width in CSS pixels
-      });
-    },
-  },
 });
 </script>
 
 <template>
-  <div>
-    <div class="page">
-      <div id="element-to-convert">
+  <div class="page">
+    <div id="element-to-convert">
+      <div>
         <div>
           <h1>{{ firstName }} {{ lastName }}</h1>
           <p>
@@ -59,45 +38,39 @@ export default defineComponent({
           </p>
           <p>LinkedIn: {{ linkedIn }} | {{ gitHub }}</p>
           <h2>Summary</h2>
+          <p>{{ summary }}</p>
         </div>
         <div>
-          <p>{{ summary }}</p>
           <h3>Skills</h3>
           <ul>
             <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
           </ul>
         </div>
-        <div>
-          <h2>Professional Experience</h2>
-          <div v-for="(job, index) in jobs" :key="index">
-            <h3>{{ job.title }}</h3>
-            <p>{{ job.company }} - {{ job.location }}</p>
-            <p>{{ job.start }} - {{ job.end }}</p>
-            <p>
-              {{ job.description }}
-            </p>
-            <p>{{ divider }}</p>
-          </div>
+      </div>
+      <p class="divider">{{ divider }}</p>
+      <div>
+        <h2>Professional Experience</h2>
+        <div v-for="(job, index) in jobs" :key="index">
+          <h3>{{ job.title }}</h3>
+          <p>{{ job.company }} - {{ job.location }}</p>
+          <p>{{ job.start }} - {{ job.end }}</p>
+          <p>
+            {{ job.description }}
+          </p>
+          <p class="divider">{{ divider }}</p>
         </div>
-        <div>
-          <h2>Education</h2>
-          <div v-for="(school, index) in education" :key="index">
-            <p>
-              {{ school.degree }}
-            </p>
-            <p>{{ school.school }} - {{ school.gradYear }}</p>
-            <p>{{ divider }}</p>
-          </div>
+      </div>
+      <div>
+        <h2>Education</h2>
+        <div v-for="(school, index) in education" :key="index">
+          <p>
+            {{ school.degree }}
+          </p>
+          <p>{{ school.school }} - {{ school.gradYear }}</p>
+          <p class="divider">{{ divider }}</p>
         </div>
       </div>
     </div>
-
-    <button
-      class="rounded-md bg-indigo-600 my-3 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      @click="onPrint"
-    >
-      Print
-    </button>
   </div>
 </template>
 
@@ -107,8 +80,8 @@ export default defineComponent({
 }
 
 #element-to-convert {
-  margin: 25px;
   width: 750px;
+  margin: 25px;
 }
 
 h1 {
@@ -133,5 +106,10 @@ h4 {
   font-size: 1em;
   margin: 0.25em 0px;
   font-weight: bold;
+}
+
+.divider {
+  color: #a8a8aec9;
+  font-size: 0.85em;
 }
 </style>

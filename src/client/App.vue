@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import jsPDF from "jspdf";
 import ManualForm from "./components/ManualForm.vue";
 import FormattedDoc from "./components/FormattedDoc.vue";
 
@@ -19,6 +19,25 @@ export default defineComponent({
     },
     showPreview() {
       return this.view == "preview";
+    },
+  },
+  methods: {
+    onPrint() {
+      const element = document.getElementById("element-to-convert");
+      const doc = new jsPDF();
+
+      // extra details we can reference when importing
+      doc.setProperties({
+        author: "tyfyc",
+        keywords: "resume",
+      });
+      doc.html(element, {
+        callback: function (doc) {
+          doc.save("sample-document.pdf");
+        },
+        width: 170,
+        windowWidth: 650, //window width in CSS pixels
+      });
     },
   },
 });
@@ -49,6 +68,13 @@ export default defineComponent({
       @click="view = 'preview'"
     >
       <h3>Preview</h3>
+    </button>
+    <button
+      v-if="view == 'preview'"
+      class="rounded-md bg-indigo-600 m-3 p-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 hover:cursor-pointer"
+      @click="onPrint"
+    >
+      Export
     </button>
   </div>
   <div class="flex bg-white">
