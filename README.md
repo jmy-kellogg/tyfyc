@@ -7,7 +7,7 @@ Tyfyc stands for “thank you for your consideration” this is to assist in cus
 - [X] Manually add/change resume
 - [X] Formats resume to downloadable PDF
 - [X] Saves locally in cookies
-- [ ] Autofill resume from an existing resume
+- [X] Autofill resume from an existing resume
 - [ ] Updates resume according to job posting
 
 ## Installation

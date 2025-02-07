@@ -62,11 +62,7 @@ export default defineComponent({
             Email: {{ email }} | Phone: {{ phone }} | Location: {{ city }},
             {{ state }} |
           </p>
-          <p>
-            LinkedIn: linkedin.com/in/{{ linkedIn }} | GitHub: github.com/{{
-              gitHub
-            }}
-          </p>
+          <p>LinkedIn: {{ linkedIn }} | {{ gitHub }}</p>
           <h2>Summary</h2>
         </div>
         <div>

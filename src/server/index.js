@@ -30,13 +30,31 @@ const divider = () => {
   return line;
 };
 
-// ToDo: split up and simplify logic
-const parseTextData = (rawText) => {
-  const textData = rawText.split("\r\n").filter((str) => !!str.trim());
-  const names = textData[0]?.split(" ");
-  const contacts = textData[1]?.split("|");
-  const sites = textData[2]?.split("|");
-  const summary = textData[4];
+const removeSubString = (str = "", sub) => {
+  return str.split(sub)?.join("")?.trim() || "";
+};
+
+const getPersonal = (textData = []) => {
+  const names = textData[0]?.split(" ") || [];
+  const contacts = textData[1]?.split("|") || [];
+  const location = removeSubString(contacts[2], "Location: ").split(", ") || [];
+  const sites = textData[2]?.split("|") || [];
+  const summary = textData[4] || "";
+
+  return {
+    firstName: names[0]?.trim() || "",
+    lastName: names[1]?.trim() || "",
+    email: removeSubString(contacts[0], "Email: "),
+    phone: removeSubString(contacts[1], "Phone: "),
+    city: location[0]?.trim() || "",
+    state: location[1]?.trim() || "",
+    linkedIn: removeSubString(sites[0], "LinkedIn: "),
+    gitHub: removeSubString(sites[1], "GitHub: "),
+    summary: summary,
+  };
+};
+
+const getSkills = (textData = []) => {
   const skills = textData
     .slice(
       textData.indexOf("Skills") + 1,
@@ -47,6 +65,10 @@ const parseTextData = (rawText) => {
       id: snake_case_string(skill),
     }));
 
+  return skills;
+};
+
+const getJobs = (textData = []) => {
   const jobs = textData
     .slice(
       textData.indexOf("Professional Experience") + 1,
@@ -62,52 +84,51 @@ const parseTextData = (rawText) => {
 
     if (job.length) {
       respJobs.push({
-        title: job[0],
-        company: job[1]?.split(" - ")[0]?.trim(),
-        location: job[1]?.split(" - ")[1]?.trim(),
-        start: job[2]?.split(" - ")[0]?.trim(),
-        end: job[2]?.split(" - ")[1]?.trim(),
+        title: job[0] || "",
+        company: job[1]?.split(" - ")[0]?.trim() || "",
+        location: job[1]?.split(" - ")[1]?.trim() || "",
+        start: job[2]?.split(" - ")[0]?.trim() || "",
+        end: job[2]?.split(" - ")[1]?.trim() || "",
         description: job.slice(3, job.length).join(" "),
       });
     }
   });
 
+  return respJobs;
+};
+
+const getEducation = (textData = []) => {
   const education = textData
     .slice(textData.indexOf("Education") + 1, textData.length)
+    .filter((line) => {
+      return !(line.includes("Page (") && line.includes(") Break"));
+    })
     .join("|||")
     .split(divider());
 
   let respEdu = [];
+
   education.forEach((element) => {
     const edu = element.split("|||").filter((str) => !!str.trim());
     if (("school line", edu.length == 2)) {
       respEdu.push({
-        degree: edu[0],
-        school: edu[1]?.split(" - ")[0]?.trim(),
-        gradYear: edu[1]?.split(" - ")[1]?.trim(),
+        degree: edu[0] || "",
+        school: edu[1]?.split(" - ")[0]?.trim() || "",
+        gradYear: edu[1]?.split(" - ")[1]?.trim() || "",
       });
     }
   });
+  return respEdu;
+};
+
+const parseTextData = (rawText = "") => {
+  const textData = rawText.split("\r\n").filter((str) => !!str.trim());
 
   return {
-    personal: {
-      firstName: names[0]?.trim() || "",
-      lastName: names[1]?.trim() || "",
-      email: contacts[0]?.split("Email: ")?.join("")?.trim() || "",
-      phone: contacts[1]?.split("Phone: ")?.join("")?.trim() || "",
-      city:
-        contacts[2]?.split("Location: ")?.join("")?.split(", ")[0]?.trim() ||
-        "",
-      state:
-        contacts[2]?.split("Location: ")?.join("")?.split(", ")[1]?.trim() ||
-        "",
-      linkedIn: sites[0]?.split("LinkedIn: ")?.join("")?.trim() || "",
-      gitHub: sites[1]?.split("GitHub: ")?.join("")?.trim() || "",
-      summary: summary?.trim() || "",
-    },
-    skills: skills,
-    jobs: respJobs,
-    education: respEdu,
+    personal: getPersonal(textData),
+    skills: getSkills(textData),
+    jobs: getJobs(textData),
+    education: getEducation(textData),
   };
 };
 
