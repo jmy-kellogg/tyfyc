@@ -1,6 +1,13 @@
 <script lang="ts">
-import { defineComponent } from "vue";
 import axios from "axios";
+import { defineComponent } from "vue";
+import {
+  type ParsedData,
+  type Skills,
+  type Jobs,
+  type Educations,
+  type Personal,
+} from "../../types/index";
 
 export default defineComponent({
   name: "DocUploader",
@@ -8,7 +15,7 @@ export default defineComponent({
     return { embedSrc: "", errorMsg: "" };
   },
   methods: {
-    addPreview(file) {
+    addPreview(file: File) {
       const fileReader = new FileReader();
       fileReader.addEventListener("load", async () => {
         this.embedSrc = fileReader.result;
@@ -16,8 +23,8 @@ export default defineComponent({
       fileReader.readAsDataURL(file);
     },
     async onFilePicked(event) {
-      const files = event.target.files;
-      const file = files[0];
+      const files: Array<File> = event.target.files;
+      const file: File = files[0];
 
       this.errorMsg = "";
 
@@ -37,7 +44,7 @@ export default defineComponent({
         );
         // ToDo: move the request and updates to the store
         // also make sure to sync with localStorage
-        const parsedData = response.data;
+        const parsedData: ParsedData = response.data;
 
         this.updatePersonalData(parsedData.personal);
         this.updateSkillsData(parsedData.skills);
@@ -47,19 +54,19 @@ export default defineComponent({
         this.errorMsg = "Invalid Resume Added";
       }
     },
-    updatePersonalData(personalData) {
+    updatePersonalData(personalData: Personal) {
       for (let field in personalData) {
         const value = personalData[field];
         this.$store.dispatch("personal/updateData", { field, value });
       }
     },
-    updateSkillsData(skillsData) {
+    updateSkillsData(skillsData: Skills) {
       this.$store.dispatch("skills/updateSkills", skillsData);
     },
-    updateJobsData(jobsData) {
+    updateJobsData(jobsData: Jobs) {
       this.$store.dispatch("jobs/updateJobs", jobsData);
     },
-    updateEducationData(eduData) {
+    updateEducationData(eduData: Educations) {
       this.$store.dispatch("education/updateEducation", eduData);
     },
   },

@@ -14,7 +14,7 @@ export default defineComponent({
     addNew() {
       this.$store.dispatch("jobs/addNew");
     },
-    remove(index) {
+    remove(index: number) {
       this.$store.dispatch("jobs/remove", index);
     },
   },

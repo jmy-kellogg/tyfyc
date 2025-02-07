@@ -2,9 +2,8 @@
 import Multiselect from "vue-multiselect";
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
-
-import { type Skill } from "../../types/index";
 import { snake_case_string } from "../../../utils";
+import { type Skills, type Skill } from "../../types/index";
 
 export default defineComponent({
   name: "Skills",
@@ -12,7 +11,7 @@ export default defineComponent({
     Multiselect,
   },
   data() {
-    const options: Array<Skill> = [
+    const options: Skills = [
       { name: "JavaScript", id: "javascript" },
       { name: "TypeScript", id: "typescript" },
       { name: "Python", id: "python" },
