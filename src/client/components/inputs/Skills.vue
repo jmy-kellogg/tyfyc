@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 import { mapState } from "vuex";
 
 import { type Skill } from "../../types/index";
+import { snake_case_string } from "../../../utils";
 
 export default defineComponent({
   name: "Skills",
@@ -89,21 +90,10 @@ export default defineComponent({
     addTag(newSkill: string) {
       const tag: Skill = {
         name: newSkill,
-        id: this.snake_case_string(newSkill),
+        id: snake_case_string(newSkill),
       };
       this.options.push(tag);
       this.onSelect(tag);
-    },
-    snake_case_string(str: string) {
-      return (
-        str &&
-        str
-          .match(
-            /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
-          )
-          .map((s) => s.toLowerCase())
-          .join("_")
-      );
     },
   },
 });

@@ -4,34 +4,13 @@ import cors from "cors";
 import multer from "multer";
 import PDFParser from "pdf2json";
 
+import { snake_case_string, divider } from "../utils";
+
 const app = express();
 app.use(cors());
 
-// ToDo: move these to reusable components
-const snake_case_string = (str) => {
-  return (
-    str &&
-    str
-      .match(
-        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
-      )
-      .map((s) => s.toLowerCase())
-      .join("_")
-  );
-};
-
-const divider = () => {
-  let index = 75;
-  let line = "";
-  while (index > 0) {
-    index--;
-    line += "_";
-  }
-  return line;
-};
-
 const removeSubString = (str = "", sub) => {
-  return str.split(sub)?.join("")?.trim() || "";
+  return str.replace(sub, "")?.trim() || "";
 };
 
 const getPersonal = (textData = []) => {

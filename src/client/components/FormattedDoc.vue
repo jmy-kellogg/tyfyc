@@ -1,8 +1,8 @@
 <script lang="ts">
 import jsPDF from "jspdf";
-
 import { defineComponent } from "vue";
 import { mapState } from "vuex";
+import { divider } from "../../utils";
 
 export default defineComponent({
   name: "FormattedDoc",
@@ -21,16 +21,7 @@ export default defineComponent({
     ...mapState("education", { education: "educationList" }),
     ...mapState("jobs", { jobs: "jobsList" }),
     ...mapState("skills", { skills: "skillsList" }),
-    // Note: this is to allow us to see sections when importing pdf, until we have a more robust parser
-    divider() {
-      let index = 75;
-      let line = "";
-      while (index > 0) {
-        index--;
-        line += "_";
-      }
-      return line;
-    },
+    divider,
   },
   methods: {
     onPrint() {
