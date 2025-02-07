@@ -2,6 +2,7 @@
 
 Tyfyc stands for “thank you for your consideration” this is to assist in customizing a person resume. This tool will allow you to upload your resume and auto update it according to a given job post.
 
+![Alt text](public/app-preview.png)
 
 ## Features
 - [X] Manually add/change resume
@@ -24,6 +25,7 @@ The app will run locally http://localhost:3000/
 ### Compiles and minifies for production
 ```
 npm run build
+
 ```
 
 ## Project Structure
