@@ -15,13 +15,6 @@ export default defineComponent({
     return { embedSrc: "", errorMsg: "" };
   },
   methods: {
-    addPreview(file: File) {
-      const fileReader = new FileReader();
-      fileReader.addEventListener("load", async () => {
-        this.embedSrc = fileReader.result;
-      });
-      fileReader.readAsDataURL(file);
-    },
     async onFilePicked(event) {
       const files: Array<File> = event.target.files;
       const file: File = files[0];
@@ -76,7 +69,7 @@ export default defineComponent({
 <template>
   <div class="mb-4 col-span-full">
     <label for="resume-uploader" class="block text-sm/6 font-medium">
-      <h2><b>Upload </b></h2>
+      <h2><b>Upload</b></h2>
     </label>
     <div
       class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
@@ -135,14 +128,5 @@ export default defineComponent({
     <span class="sr-only">Info</span>
     <span class="font-medium">{{ errorMsg }}</span>
   </div>
-  <!-- <div v-if="!!embedSrc">
-    <h2>Preview</h2>
-    <embed
-      type="application/pdf"
-      :src="embedSrc"
-      width="100%"
-      style="max-height: 50rem; min-height: 20rem"
-    />
-  </div> -->
 </template>
 <style scoped></style>
