@@ -35,7 +35,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="bg-white mr-5 p-5 w-[650px]">
+  <div class="bg-white mr-5 p-5">
     <form>
       <DocUploaderVue />
       <h2><b>Personal</b></h2>

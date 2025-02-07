@@ -23,11 +23,37 @@ export default defineComponent({
     ...mapState("skills", { skills: "skillsList" }),
     divider,
   },
+  methods: {
+    onPrint() {
+      const element = document.getElementById("element-to-convert");
+      const doc = new jsPDF();
+
+      // extra details we can reference when importing
+      doc.setProperties({
+        author: "tyfyc",
+        keywords: "resume",
+      });
+      doc.html(element, {
+        callback: function (doc) {
+          doc.save("sample-document.pdf");
+        },
+        width: 170,
+        windowWidth: 650,
+      });
+    },
+  },
 });
 </script>
 
 <template>
-  <div class="page bg-white">
+  <div class="bg-white p-5">
+    <button
+      v-if="view == 'preview' || !smallDisplay"
+      class="sticky float-right rounded-md bg-indigo-600 mx-3 p-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 hover:cursor-pointer"
+      @click="onPrint"
+    >
+      Export
+    </button>
     <div id="element-to-convert">
       <div>
         <div>
@@ -75,10 +101,6 @@ export default defineComponent({
 </template>
 
 <style scoped>
-.page {
-  padding: 15px 0px;
-}
-
 #element-to-convert {
   width: 750px;
   margin: 25px;
