@@ -110,8 +110,8 @@ export default defineComponent({
               @change="onFilePicked"
             />
           </label>
-          <p class="pl-1">or drag and drop</p>
         </div>
+        <p class="pl-1">or drag and drop</p>
         <p class="text-xs/5 text-gray-600">PDF up to 10MB</p>
       </div>
     </div>

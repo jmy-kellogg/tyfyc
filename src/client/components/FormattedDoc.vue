@@ -27,7 +27,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="page">
+  <div class="page bg-white">
     <div id="element-to-convert">
       <div>
         <div>

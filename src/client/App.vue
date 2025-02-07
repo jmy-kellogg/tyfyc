@@ -8,10 +8,15 @@ export default defineComponent({
   name: "App",
   components: { ManualForm, FormattedDoc },
   data() {
-    return { view: "form" };
+    return { view: "form", screenWidth: 0 };
   },
   mounted() {
     this.$store.dispatch("getStateFromLocalStorage");
+    this.updateScreenSize();
+    window.addEventListener("resize", this.updateScreenSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateScreenSize);
   },
   computed: {
     showForm() {
@@ -20,8 +25,14 @@ export default defineComponent({
     showPreview() {
       return this.view == "preview";
     },
+    smallDisplay() {
+      return this.screenWidth < 1200;
+    },
   },
   methods: {
+    updateScreenSize() {
+      this.screenWidth = window.innerWidth;
+    },
     onPrint() {
       const element = document.getElementById("element-to-convert");
       const doc = new jsPDF();
@@ -46,6 +57,7 @@ export default defineComponent({
 <template>
   <div class="flex">
     <button
+      v-if="smallDisplay"
       class="m-1 ml-0 w-24 rounded-t-lg p-3 hover:cursor-pointer hover:font-bold"
       :class="{
         'font-bold': showForm,
@@ -58,6 +70,7 @@ export default defineComponent({
       <h3>Input</h3>
     </button>
     <button
+      v-if="smallDisplay"
       class="m-1 ml-0 w-24 rounded-t-lg p-3 hover:cursor-pointer hover:font-bold"
       :class="{
         'font-bold': showPreview,
@@ -70,16 +83,16 @@ export default defineComponent({
       <h3>Preview</h3>
     </button>
     <button
-      v-if="view == 'preview'"
+      v-if="view == 'preview' || !smallDisplay"
       class="rounded-md bg-indigo-600 m-3 p-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 hover:cursor-pointer"
       @click="onPrint"
     >
       Export
     </button>
   </div>
-  <div class="flex bg-white">
-    <ManualForm v-if="showForm" />
-    <FormattedDoc v-if="showPreview" />
+  <div class="flex">
+    <ManualForm v-if="showForm || !smallDisplay" />
+    <FormattedDoc v-if="showPreview || !smallDisplay" />
   </div>
 </template>
 
