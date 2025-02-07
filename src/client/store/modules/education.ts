@@ -1,4 +1,4 @@
-import { type Education, type EducationState, type Context}  from "../../types/index"
+import { type Educations, type EducationState, type Context}  from "../../types/index"
 
 
 interface EduContext extends Context {
@@ -17,7 +17,7 @@ export default {
     ],
   }),
   mutations: {
-    updateEducation(state: EducationState, educationList: Array<Education>) {
+    updateEducation(state: EducationState, educationList: Educations) {
       state.educationList = educationList;
     },
     addNew(state: EducationState) {
@@ -36,7 +36,7 @@ export default {
     syncWithLocalStorage({ commit }: EduContext) {
       const educationData = localStorage.getItem("education");
       if (educationData) {
-        const parseData: Array<Education> = JSON.parse(educationData);
+        const parseData: Educations = JSON.parse(educationData);
 
         commit("updateEducation", parseData);
       }
@@ -44,7 +44,7 @@ export default {
     saveToLocalStorage({ state }: EduContext) {
       localStorage.setItem("education", JSON.stringify(state.educationList));
     },
-    updateEducation({ commit }: EduContext, educationList: Array<Education>) {
+    updateEducation({ commit }: EduContext, educationList: Educations) {
         commit("updateEducation", educationList);
     },
     addNew({ commit }: EduContext) {

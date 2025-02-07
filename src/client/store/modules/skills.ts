@@ -1,4 +1,4 @@
-import { type Skill, type SkillsState, type Context}  from "../../types/index"
+import { type Skills, type Skill, type SkillsState, type Context}  from "../../types/index"
 
 interface SkillsContext extends Context {
   state: SkillsState
@@ -10,7 +10,7 @@ export default {
     skillsList: [{ name: "JavaScript", id: "javascript" }],
   }),
   mutations: {
-    updateSkills(state: SkillsState, skills:  Array<Skill>) {
+    updateSkills(state: SkillsState, skills:  Skills) {
       state.skillsList = skills;
     },
     addSkill(state: SkillsState, skill: Skill) {
@@ -24,14 +24,14 @@ export default {
     syncWithLocalStorage({ commit }: SkillsContext) {
       const skillsData = localStorage.getItem("skills");
       if (skillsData) {
-        const parseData:Array<Skill> = JSON.parse(skillsData);
+        const parseData:Skills = JSON.parse(skillsData);
         commit("updateSkills", parseData);
       }
     },
     saveToLocalStorage({ state }: SkillsContext) {
       localStorage.setItem("skills", JSON.stringify(state.skillsList));
     },
-    updateSkills({ commit }: SkillsContext, skills:  Array<Skill>) {
+    updateSkills({ commit }: SkillsContext, skills:  Skills) {
         commit("updateSkills", skills);
     },
     async addSkill({ commit, dispatch }: SkillsContext, skill: Skill) {
