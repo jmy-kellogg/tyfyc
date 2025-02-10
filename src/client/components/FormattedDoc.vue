@@ -18,7 +18,7 @@ export default defineComponent({
       "gitHub",
       "summary",
     ]),
-    ...mapState("education", { education: "educationList" }),
+    ...mapState("education", { education: "list" }),
     ...mapState("jobs", { jobs: "list" }),
     ...mapState("skills", { skills: "list" }),
     divider,

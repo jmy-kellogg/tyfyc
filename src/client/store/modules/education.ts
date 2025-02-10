@@ -1,14 +1,17 @@
-import { type Educations, type EducationState, type Context}  from "../../../types/index"
-
+import {
+  type EducationList,
+  type EducationState,
+  type Context,
+} from "../../../types/index";
 
 interface EduContext extends Context {
-  state: EducationState
+  state: EducationState;
 }
 
 export default {
   namespaced: true,
-  state: ():EducationState => ({
-    educationList: [
+  state: (): EducationState => ({
+    list: [
       {
         degree: "",
         school: "",
@@ -17,8 +20,8 @@ export default {
     ],
   }),
   mutations: {
-    updateEducation(state: EducationState, educationList: Educations) {
-      state.educationList = educationList;
+    updateEducation(state: EducationState, list: EducationList) {
+      state.list = list;
     },
     addNew(state: EducationState) {
       const newItem = {
@@ -26,26 +29,26 @@ export default {
         school: "",
         gradYear: "",
       };
-      state.educationList.push(newItem);
+      state.list.push(newItem);
     },
     remove(state: EducationState, index: number) {
-      state.educationList.splice(index, 1);
+      state.list.splice(index, 1);
     },
   },
   actions: {
     syncWithLocalStorage({ commit }: EduContext) {
       const educationData = localStorage.getItem("education");
       if (educationData) {
-        const parseData: Educations = JSON.parse(educationData);
+        const parseData: EducationList = JSON.parse(educationData);
 
         commit("updateEducation", parseData);
       }
     },
     saveToLocalStorage({ state }: EduContext) {
-      localStorage.setItem("education", JSON.stringify(state.educationList));
+      localStorage.setItem("education", JSON.stringify(state.list));
     },
-    updateEducation({ commit }: EduContext, educationList: Educations) {
-        commit("updateEducation", educationList);
+    updateEducation({ commit }: EduContext, list: EducationList) {
+      commit("updateEducation", list);
     },
     addNew({ commit }: EduContext) {
       commit("addNew");

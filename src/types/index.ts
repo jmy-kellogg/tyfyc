@@ -48,7 +48,7 @@ export interface JobsState {
 }
 
 export interface EducationState {
-  educationList: EducationList;
+  list: EducationList;
 }
 
 export interface Context {
