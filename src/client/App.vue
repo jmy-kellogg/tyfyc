@@ -8,10 +8,11 @@ export default defineComponent({
   name: "App",
   components: { ManualForm, FormattedDoc },
   data() {
-    return { view: "form", screenWidth: 0 };
+    return { view: "form", smallDisplay: false };
   },
   mounted() {
     this.$store.dispatch("getStateFromLocalStorage");
+
     this.updateScreenSize();
     window.addEventListener("resize", this.updateScreenSize);
   },
@@ -25,22 +26,18 @@ export default defineComponent({
     showPreview() {
       return this.view == "preview";
     },
-    smallDisplay() {
-      return this.screenWidth < 1200;
-    },
   },
   methods: {
     updateScreenSize() {
-      this.screenWidth = window.innerWidth;
+      this.smallDisplay = window.innerWidth < 1200;
     },
   },
 });
 </script>
 
 <template>
-  <div class="flex">
+  <div v-if="smallDisplay" class="flex">
     <button
-      v-if="smallDisplay"
       class="m-1 ml-0 w-24 rounded-t-lg p-3 hover:cursor-pointer hover:font-bold"
       :class="{
         'font-bold': showForm,
@@ -52,7 +49,6 @@ export default defineComponent({
       <h3>Input</h3>
     </button>
     <button
-      v-if="smallDisplay"
       class="m-1 ml-0 w-24 rounded-t-lg p-3 hover:cursor-pointer hover:font-bold"
       :class="{
         'font-bold': showPreview,
