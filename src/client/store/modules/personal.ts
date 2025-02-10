@@ -1,4 +1,4 @@
-import {  type PersonalState, type Context, type PersonalStateUpdate}  from "../../types/index"
+import {  type PersonalState, type Context, type PersonalStateUpdate}  from "../../../types/index"
 
 
 interface PersonalContext extends Context {

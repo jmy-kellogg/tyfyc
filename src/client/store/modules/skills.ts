@@ -1,4 +1,4 @@
-import { type Skills, type Skill, type SkillsState, type Context}  from "../../types/index"
+import { type Skills, type Skill, type SkillsState, type Context}  from "../../../types/index"
 
 interface SkillsContext extends Context {
   state: SkillsState

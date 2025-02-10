@@ -17,7 +17,7 @@ export interface Skill {
    id: string 
 }
 
-export type Skills = Array<Skill>
+export type SkillsList = Array<Skill>
 
 export interface Job {
   title: string;
@@ -28,7 +28,7 @@ export interface Job {
   description: string;
 }
 
-export type Jobs = Array<Job>
+export type JobsList = Array<Job>
 
 export interface Education {
   degree: string;
@@ -36,22 +36,22 @@ export interface Education {
   gradYear: string;
 }
 
-export type Educations = Array<Education>
+export type EducationList = Array<Education>
 
 
 //Store
 export interface PersonalState extends  Personal{}
 
 export interface SkillsState {
-  skillsList: Skills
+  skillsList: SkillsList
 }
 
 export interface JobsState {
-  jobsList: Jobs
+  jobsList: JobsList
 }
 
 export interface EducationState {
-  educationList: Educations
+  educationList: EducationList
 }
 
 export interface Context {
@@ -75,7 +75,7 @@ export interface PersonalStateUpdate {
 // API
 export interface ParsedData {
   personal: Personal,
-  skills: Skills,
-  jobs: Jobs,
-  education: Educations
+  skills: SkillsList,
+  jobs: JobsList,
+  education: EducationList
 }

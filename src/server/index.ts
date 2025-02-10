@@ -1,32 +1,23 @@
-import express from "express";
-import multer from "multer";
 import PDFParser from "pdf2json";
+import multer from "multer";
+import express, { type Request, type Response } from "express";
 
-// ToDo: move to utils
-// import { snake_case_string, divider } from "../utils/index.ts";
-export const snake_case_string = (str) => {
-  const regex =
-    /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g;
-  const regexOutput = str.match(regex) || [];
-  return regexOutput.map((s) => s?.toLowerCase()).join("_");
-};
-export const divider = () => {
-  let index = 100;
-  let line = "";
-  while (index > 0) {
-    index--;
-    line += "_";
-  }
-  return line;
-};
+import { snake_case_string, divider } from "../utils/index.ts";
+import type {
+  Personal,
+  SkillsList,
+  JobsList,
+  EducationList,
+  ParsedData,
+} from "../types";
 
 export const app = express();
 
-const removeSubString = (str = "", sub) => {
+const removeSubString = (str: string, sub: string): string => {
   return str.replace(sub, "")?.trim() || "";
 };
 
-const getPersonal = (textData = []) => {
+const getPersonal = (textData: Array<string> = []): Personal => {
   const names = textData[0]?.split(" ") || [];
   const contacts = textData[1]?.split("|") || [];
   const location = removeSubString(contacts[2], "Location: ").split(", ") || [];
@@ -46,7 +37,7 @@ const getPersonal = (textData = []) => {
   };
 };
 
-const getSkills = (textData = []) => {
+const getSkills = (textData: Array<string> = []): SkillsList => {
   const skills = textData
     .slice(
       textData.indexOf("Skills") + 1,
@@ -60,7 +51,7 @@ const getSkills = (textData = []) => {
   return skills;
 };
 
-const getJobs = (textData = []) => {
+const getJobs = (textData: Array<string> = []): JobsList => {
   const jobs = textData
     .slice(
       textData.indexOf("Professional Experience") + 1,
@@ -69,7 +60,7 @@ const getJobs = (textData = []) => {
     .join("|||")
     .split(divider());
 
-  let respJobs = [];
+  const respJobs: JobsList = [];
 
   jobs.forEach((element) => {
     const job = element.split("|||").filter((str) => !!str.trim());
@@ -89,7 +80,7 @@ const getJobs = (textData = []) => {
   return respJobs;
 };
 
-const getEducation = (textData = []) => {
+const getEducation = (textData: Array<string> = []): EducationList => {
   const education = textData
     .slice(textData.indexOf("Education") + 1, textData.length)
     .filter((line) => {
@@ -98,11 +89,11 @@ const getEducation = (textData = []) => {
     .join("|||")
     .split(divider());
 
-  let respEdu = [];
+  const respEdu: EducationList = [];
 
   education.forEach((element) => {
     const edu = element.split("|||").filter((str) => !!str.trim());
-    if (("school line", edu.length == 2)) {
+    if (edu.length == 2) {
       respEdu.push({
         degree: edu[0] || "",
         school: edu[1]?.split(" - ")[0]?.trim() || "",
@@ -110,10 +101,11 @@ const getEducation = (textData = []) => {
       });
     }
   });
+
   return respEdu;
 };
 
-const parseTextData = (rawText = "") => {
+const parseTextData = (rawText: string): ParsedData => {
   const textData = rawText.split("\r\n").filter((str) => !!str.trim());
 
   return {
@@ -126,19 +118,18 @@ const parseTextData = (rawText = "") => {
 
 // ToDo: find a better upload solution
 const upload = multer({ dest: "uploads/" });
-app.post("/parser", upload.single("file"), async (req, res) => {
+app.post("/parser", upload.single("file"), (req: Request, res: Response) => {
   try {
-    const pdfParser = new PDFParser(this, 1);
+    const pdfParser = new PDFParser(this, true);
+    const path = req?.file?.path || "";
 
-    pdfParser.loadPDF(req.file.path);
-
+    pdfParser.loadPDF(path);
     pdfParser.on("pdfParser_dataError", (errData) => {
       return res.status(500).send({ error: errData.parserError });
     });
-
-    pdfParser.on("pdfParser_dataReady", (pdfData) => {
-      if (pdfData.Meta.Author === "tyfyc") {
-        const rawText = pdfParser.getRawTextContent();
+    pdfParser.on("pdfParser_dataReady", (pdfData: any) => {
+      if (pdfData?.Meta?.Author === "tyfyc") {
+        const rawText = pdfParser.getRawTextContent() || "";
         const textData = parseTextData(rawText);
         return res.status(200).send(textData);
       } else {

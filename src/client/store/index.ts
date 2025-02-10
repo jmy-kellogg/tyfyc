@@ -1,7 +1,7 @@
 import { type InjectionKey } from 'vue';
 import { createStore,  useStore as baseUseStore, type Store } from 'vuex';
 
-import { type State, type Context}  from "../types/index.ts"
+import { type State, type Context}  from "../../types/index.ts"
 import personal from "./modules/personal";
 import skills from "./modules/skills";
 import jobs from "./modules/jobs";
