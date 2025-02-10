@@ -35,7 +35,7 @@ export default defineComponent({
       });
       doc.html(element, {
         callback: function (doc) {
-          doc.save("sample-document.pdf");
+          doc.save("tyfyc_resume.pdf");
         },
         width: 170,
         windowWidth: 650,
@@ -48,7 +48,6 @@ export default defineComponent({
 <template>
   <div class="bg-white p-5">
     <button
-      v-if="view == 'preview' || !smallDisplay"
       class="sticky float-right rounded-md bg-indigo-600 mx-3 p-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 hover:cursor-pointer"
       @click="onPrint"
     >
