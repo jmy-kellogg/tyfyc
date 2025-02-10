@@ -11,8 +11,8 @@ export interface Personal {
 }
 
 export interface Skill {
-  name: string;
-  id: string;
+  label: string;
+  value: string;
 }
 
 export type SkillsList = Array<Skill>;
@@ -40,7 +40,7 @@ export type EducationList = Array<Education>;
 export type PersonalState = Personal;
 
 export interface SkillsState {
-  skillsList: SkillsList;
+  list: SkillsList;
 }
 
 export interface JobsState {

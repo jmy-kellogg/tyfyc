@@ -20,7 +20,7 @@ export default defineComponent({
     ]),
     ...mapState("education", { education: "educationList" }),
     ...mapState("jobs", { jobs: "jobsList" }),
-    ...mapState("skills", { skills: "skillsList" }),
+    ...mapState("skills", { skills: "list" }),
     divider,
   },
   methods: {
@@ -68,7 +68,9 @@ export default defineComponent({
         <div>
           <h3>Skills</h3>
           <ul>
-            <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
+            <li v-for="skill in skills" :key="skill.value">
+              {{ skill.label }}
+            </li>
           </ul>
         </div>
       </div>

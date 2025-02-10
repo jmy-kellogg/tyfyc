@@ -44,8 +44,8 @@ const getSkills = (textData: Array<string> = []): SkillsList => {
       textData.indexOf("Professional Experience") - 1
     )
     .map((skill) => ({
-      name: skill,
-      id: snake_case_string(skill),
+      label: skill,
+      value: snake_case_string(skill),
     }));
 
   return skills;

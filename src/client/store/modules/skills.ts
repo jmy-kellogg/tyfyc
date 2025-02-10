@@ -1,38 +1,43 @@
-import { type Skills, type Skill, type SkillsState, type Context}  from "../../../types/index"
+import type {
+  SkillsList,
+  Skill,
+  SkillsState,
+  Context,
+} from "../../../types/index";
 
 interface SkillsContext extends Context {
-  state: SkillsState
+  state: SkillsState;
 }
 
 export default {
   namespaced: true,
   state: () => ({
-    skillsList: [{ name: "JavaScript", id: "javascript" }],
+    list: [{ label: "JavaScript", name: "javascript" }],
   }),
   mutations: {
-    updateSkills(state: SkillsState, skills:  Skills) {
-      state.skillsList = skills;
+    updateSkills(state: SkillsState, skills: SkillsList) {
+      state.list = skills;
     },
     addSkill(state: SkillsState, skill: Skill) {
-      state.skillsList.push(skill);
+      state.list.push(skill);
     },
     remove(state: SkillsState, index: number) {
-      state.skillsList.splice(index, 1);
+      state.list.splice(index, 1);
     },
   },
   actions: {
     syncWithLocalStorage({ commit }: SkillsContext) {
       const skillsData = localStorage.getItem("skills");
       if (skillsData) {
-        const parseData:Skills = JSON.parse(skillsData);
+        const parseData: SkillsList = JSON.parse(skillsData);
         commit("updateSkills", parseData);
       }
     },
     saveToLocalStorage({ state }: SkillsContext) {
-      localStorage.setItem("skills", JSON.stringify(state.skillsList));
+      localStorage.setItem("skills", JSON.stringify(state.list));
     },
-    updateSkills({ commit }: SkillsContext, skills:  Skills) {
-        commit("updateSkills", skills);
+    updateSkills({ commit }: SkillsContext, skills: SkillsList) {
+      commit("updateSkills", skills);
     },
     async addSkill({ commit, dispatch }: SkillsContext, skill: Skill) {
       await commit("addSkill", skill);
