@@ -44,7 +44,7 @@ export interface SkillsState {
 }
 
 export interface JobsState {
-  jobsList: JobsList;
+  list: JobsList;
 }
 
 export interface EducationState {

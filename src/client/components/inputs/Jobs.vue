@@ -5,7 +5,7 @@ import { mapState } from "vuex";
 export default defineComponent({
   name: "Jobs",
   computed: {
-    ...mapState("jobs", { jobs: "jobsList" }),
+    ...mapState("jobs", { jobs: "list" }),
   },
   methods: {
     saveJobs() {

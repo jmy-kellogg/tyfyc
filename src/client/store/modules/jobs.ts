@@ -1,13 +1,13 @@
-import { type Jobs, type JobsState, type Context}  from "../../../types/index"
+import type { JobsList, JobsState, Context } from "../../../types/index";
 
 interface JobsContext extends Context {
-  state: JobsState
+  state: JobsState;
 }
 
 export default {
   namespaced: true,
   state: (): JobsState => ({
-    jobsList: [
+    list: [
       {
         title: "",
         company: "",
@@ -19,8 +19,8 @@ export default {
     ],
   }),
   mutations: {
-    updateJobs(state: JobsState, jobs: Jobs) {
-      state.jobsList = jobs;
+    updateJobs(state: JobsState, jobs: JobsList) {
+      state.list = jobs;
     },
     addNew(state: JobsState) {
       const newItem = {
@@ -31,25 +31,25 @@ export default {
         end: "",
         description: "",
       };
-      state.jobsList.push(newItem);
+      state.list.push(newItem);
     },
     remove(state: JobsState, index: number) {
-      state.jobsList.splice(index, 1);
+      state.list.splice(index, 1);
     },
   },
   actions: {
     syncWithLocalStorage({ commit }: JobsContext) {
       const jobsData = localStorage.getItem("jobs");
       if (jobsData) {
-        const parseData: Jobs = JSON.parse(jobsData);
+        const parseData: JobsList = JSON.parse(jobsData);
         commit("updateJobs", parseData);
       }
     },
     saveToLocalStorage({ state }: JobsContext) {
-      localStorage.setItem("jobs", JSON.stringify(state.jobsList));
+      localStorage.setItem("jobs", JSON.stringify(state.list));
     },
-    updateJobs( {commit }: JobsContext, jobs: Jobs) {
-        commit("updateJobs", jobs);
+    updateJobs({ commit }: JobsContext, jobs: JobsList) {
+      commit("updateJobs", jobs);
     },
     addNew({ commit }: JobsContext) {
       commit("addNew");

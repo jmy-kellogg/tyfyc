@@ -19,7 +19,7 @@ export default defineComponent({
       "summary",
     ]),
     ...mapState("education", { education: "educationList" }),
-    ...mapState("jobs", { jobs: "jobsList" }),
+    ...mapState("jobs", { jobs: "list" }),
     ...mapState("skills", { skills: "list" }),
     divider,
   },
