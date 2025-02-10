@@ -1,6 +1,4 @@
 import express from "express";
-import ViteExpress from "vite-express";
-import cors from "cors";
 import multer from "multer";
 import PDFParser from "pdf2json";
 
@@ -22,8 +20,7 @@ export const divider = () => {
   return line;
 };
 
-const app = express();
-app.use(cors());
+export const app = express();
 
 const removeSubString = (str = "", sub) => {
   return str.replace(sub, "")?.trim() || "";
@@ -130,25 +127,25 @@ const parseTextData = (rawText = "") => {
 // ToDo: find a better upload solution
 const upload = multer({ dest: "uploads/" });
 app.post("/parser", upload.single("file"), async (req, res) => {
-  const pdfParser = new PDFParser(this, 1);
+  try {
+    const pdfParser = new PDFParser(this, 1);
 
-  pdfParser.loadPDF(req.file.path);
+    pdfParser.loadPDF(req.file.path);
 
-  pdfParser.on("pdfParser_dataError", (errData) => {
-    return res.status(500).send({ error: errData.parserError });
-  });
+    pdfParser.on("pdfParser_dataError", (errData) => {
+      return res.status(500).send({ error: errData.parserError });
+    });
 
-  pdfParser.on("pdfParser_dataReady", (pdfData) => {
-    if (pdfData.Meta.Author === "tyfyc") {
-      const rawText = pdfParser.getRawTextContent();
-      const textData = parseTextData(rawText);
-      return res.status(200).send(textData);
-    } else {
-      return res.status(400).send({ error: "Can only accept TYFYC resumes" });
-    }
-  });
+    pdfParser.on("pdfParser_dataReady", (pdfData) => {
+      if (pdfData.Meta.Author === "tyfyc") {
+        const rawText = pdfParser.getRawTextContent();
+        const textData = parseTextData(rawText);
+        return res.status(200).send(textData);
+      } else {
+        return res.status(400).send({ error: "Can only accept TYFYC resumes" });
+      }
+    });
+  } catch (err) {
+    return res.status(400).send({ error: "Can only accept TYFYC resumes" });
+  }
 });
-
-ViteExpress.listen(app, 3000, () =>
-  console.log("Serving on: http://localhost:3000/")
-);
